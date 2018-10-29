@@ -11,17 +11,19 @@ Type cd in terminal, then open up '.bashrc' with your text editor. then enter in
 Example alias below each file in this readme, replace 'DIRECTORY' with your pwd where the script is located.
 
 ---
-
 ### [Holberton README.md Template](./holberton-read_t.py)
 * alias hotr='python /DIRECTORY/holberton-read_t.py'
 
 ### [Holberton C Template](./holberton-c_t.py)
 * alias hotc='python /DIRECTORY/holberton-c_t.py'
+* **Able to create multiple files**
 
 ### [Holberton Header Template](./holberton-header_t.py)
 * alias hoth='python /DIRECTORY/holberton-header_t.py'
+* **Able to create multiple files**
 
 ---
+## Example of hotc
 
 ![Example](https://i.imgur.com/xOcHxro.png)
 
