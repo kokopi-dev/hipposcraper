@@ -1,5 +1,12 @@
 # Python Scripts for Holberton Projects
 
+## TO-UPDATE-LIST`
+
+* Implementing BeautifulSoup to login and parse project pages
+* JSON key file for login info & other future things
+* Merging Holberton C, header, and README template into 1 alias
+---
+
 ## Description
 
 To automate creating templates for C projects.
