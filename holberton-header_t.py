@@ -13,6 +13,8 @@ while (arg_len >= pos):
 	header.write("#include <stdio.h>\n")
 	header.write("#include <stdlib.h>\n")
 	header.write("\n")
+	header.write("int _putchar(char c);\n")
+	header.write("\n")
 	header.write("#endif /* */")
 
 	pos += 1

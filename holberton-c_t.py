@@ -17,4 +17,5 @@ while (arg_len >= pos):
         ctemp.write("\n")
         ctemp.write("}")
 
+	ctemp.close()
         pos += 1

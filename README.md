@@ -14,6 +14,9 @@ Example alias below each file in this readme, replace 'DIRECTORY' with your pwd 
 ### [Holberton README.md Template](./holberton-read_t.py)
 * alias hotr='python /DIRECTORY/holberton-read_t.py'
 
+### [Holberton Putchar](./holberton-putchar.py)
+* alias hotput='python /DIRECTORY/holberton-putchar.py'
+
 ### [Holberton C Template](./holberton-c_t.py)
 * alias hotc='python /DIRECTORY/holberton-c_t.py'
 * **Able to create multiple files**
