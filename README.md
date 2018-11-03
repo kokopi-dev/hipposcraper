@@ -2,8 +2,11 @@
 
 ## TO-UPDATE-LIST
 
-* Implementing BeautifulSoup to login and parse project pages
+* ~~Implementing BeautifulSoup to login and parse project pages~~
 * ~~JSON key file for login info & other future things~~
+* ~~Creating C files with proper function name filled in from parse~~
+* Creating README with proper information filled in from parse
+* Creating Header file with proper prototypes filled in from parse
 * Merging Holberton C, header, and README template into 1 alias
 ---
 
