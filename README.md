@@ -1,10 +1,18 @@
 # Python Scripts for Holberton Projects
 
-## TO-UPDATE-LIST`
+## TO-UPDATE-LIST
 
 * Implementing BeautifulSoup to login and parse project pages
-* JSON key file for login info & other future things
+* ~~JSON key file for login info & other future things~~
 * Merging Holberton C, header, and README template into 1 alias
+---
+
+### [Holberton Proj. Scraper C/Header/README](./holberton-project-scraper.py)
+* alias hos='python /DIRECTORY/holberton-project-scraper.py'
+
+### [Auth Data](./auth_data.json)
+* Store your user/pass in here
+
 ---
 
 ## Description
