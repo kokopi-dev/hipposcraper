@@ -57,37 +57,25 @@ soup = BeautifulSoup(page, 'html.parser')
 #for li in find_proto_h:
 #       print(li.next_sibling.text)
 
+proto_store = []
+i = 0
+
+# Stores C file prototypes into array
+find_proto = soup.find_all(string=re.compile("Prototype: "))
+for li in find_proto:
+		proto_store.append(li.next_sibling.text.replace(";", ""))
+
+# Loop that creates files with names & fills in prototypes
 find_file_name = soup.find_all(string=re.compile("File: "))
-                                                           
 for li in find_file_name:
-        store_file_name = open(li.next_sibling.text, "w+")
-                                                           
+        store_file_name = open(li.next_sibling.text, "w+")                                                           
         store_file_name.write('#include "holberton.h"\n')
         store_file_name.write("/**\n")
         store_file_name.write(" * main - Entry Point\n")   
         store_file_name.write(" * Return: 0\n")
         store_file_name.write(" */\n")
-        store_file_name.write("int main(void)\n")
+        store_file_name.write("%s\n" % proto_store[i])
         store_file_name.write("{\n")
         store_file_name.write("\n")
         store_file_name.write("}")
-
-#find_proto = soup.find_all(string=re.compile("Prototype: "))
-
-#for li in find_proto_h:
-#       print(li.next_sibling.text.replace(";", ""))
-
-# while (arg_len >= pos):
-#         ctemp = open(sys.argv[pos], "w+")
-
-#         ctemp.write('#include "holberton.h"\n')
-#         ctemp.write("/**\n")
-#         ctemp.write(" * main - Entry Point\n")
-#         ctemp.write(" * Return: 0\n")
-#         ctemp.write(" */\n")
-#         ctemp.write("int main(void)\n")
-#         ctemp.write("{\n")
-#         ctemp.write("\n")
-#         ctemp.write("}")
-
-#         pos += 1
+        i += 1
