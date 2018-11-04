@@ -26,7 +26,7 @@ if count != 2:
         sys.exit()
 
 # Intranet login credentials
-with open("/home/vagrant/holberton-python-scripts/auth_data.json", "r") as my_keys:
+with open("/CHANGE_TO_YOUR_DIRECTORY_HERE/auth_data.json", "r") as my_keys:
         intra_keys = json.load(my_keys)
 
 
