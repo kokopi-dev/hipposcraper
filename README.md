@@ -1,26 +1,17 @@
 # Python Scripts for Holberton Projects
 
-## TO-UPDATE-LIST
-
-* ~~Implementing BeautifulSoup to login and parse project pages~~
-* ~~JSON key file for login info & other future things~~
-* ~~Creating C files with proper function name filled in from parse~~
-* Creating README with proper information filled in from parse
-* Creating Header file with proper prototypes filled in from parse
-* Merging Holberton C, header, and README template into 1 alias
 ---
 
-### [Holberton Proj. Scraper C/Header/README](./holberton-project-scraper.py)
-* alias hos='python /DIRECTORY/holberton-project-scraper.py'
+## Required things
 
-### [Auth Data](./auth_data.json)
-* Store your user/pass in here
+* pip install mechanize
+* pip install beautifulsoup4
 
 ---
 
 ## Description
 
-To automate creating templates for C projects.
+To automate creating templates for Holberton projects.
 
 ## Instructions
 
@@ -28,25 +19,29 @@ Type cd in terminal, then open up '.bashrc' with your text editor. then enter in
 
 Example alias below each file in this readme, replace 'DIRECTORY' with your pwd where the script is located.
 
+**In holberton-project-scraper.py, change the directory your auth_data.json file is in:**
+![Change DIR](https://i.imgur.com/ZUemUzV.png)
+
 ---
+
+### [Holberton Proj. Scraper C/Header/README](./holberton-project-scraper.py)
+* alias hos='python /DIRECTORY/holberton-project-scraper.py'
+* takes 2 arguments: the project page url, and header file name
+
+### [Auth Data](./auth_data.json)
+* Store your user/pass in here
+
 ### [Holberton README.md Template](./holberton-read_t.py)
 * alias hotr='python /DIRECTORY/holberton-read_t.py'
 
 ### [Holberton Putchar](./holberton-putchar.py)
 * alias hotput='python /DIRECTORY/holberton-putchar.py'
 
-### [Holberton C Template](./holberton-c_t.py)
-* alias hotc='python /DIRECTORY/holberton-c_t.py'
-* **Able to create multiple files**
-
-### [Holberton Header Template](./holberton-header_t.py)
-* alias hoth='python /DIRECTORY/holberton-header_t.py'
-* **Able to create multiple files**
 
 ---
-## Example of hotc
+## Example of hos
 
-![Example](https://i.imgur.com/xOcHxro.png)
+![Example](https://i.imgur.com/dcjS1ue.png)
 
 ---
 

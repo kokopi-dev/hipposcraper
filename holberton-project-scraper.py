@@ -1,3 +1,6 @@
+import urllib2
+import cookielib
+import mechanize
 import sys
 import re
 import json
@@ -22,7 +25,7 @@ if count != 2:
         sys.exit()
 
 # Intranet login credentials
-with open("auth_data.json", "r") as my_keys:
+with open("/CHANGE_TO_YOUR_DIRECTORY_HERE/auth_data.json", "r") as my_keys:
         intra_keys = json.load(my_keys)
 
 
@@ -96,8 +99,8 @@ make_header.write("int _putchar(char c);\n")
 for li in find_proto_h:
         if (n == len(proto_h_store)):
                 break;
-        header.write(proto_h_store[n])
-        header.write("\n")
+        make_header.write(proto_h_store[n])
+        make_header.write("\n")
         n += 1
 
 make_header.write("\n")
