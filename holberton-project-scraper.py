@@ -19,7 +19,8 @@ arg = sys.argv[1:]
 count = len(arg)
 
 # Argument Limiter
-if count != 3:
+# Change to 3 after finishing _putchar option
+if count != 2:
         print("Enter in project url only, followed by header file name, followed by 'y' or 'n'.")
         sys.exit()
 
@@ -79,13 +80,13 @@ for li in find_file_name:
         store_file_name.write("/**\n")
         store_file_name.write(" * main - Entry Point\n")
 	store_file_name.write(" *\n")
-        store_file_name.write(" * Return:\n")
-        store_file_name.write(" */\n")
-        store_file_name.write("%s\n" % proto_store[i])
-        store_file_name.write("{\n")
-        store_file_name.write("\n")
-        store_file_name.write("}")
-        i += 1
+	store_file_name.write(" * Return:\n")
+	store_file_name.write(" */\n")
+	store_file_name.write("%s\n" % proto_store[i])
+	store_file_name.write("{\n")
+	store_file_name.write("\n")
+	store_file_name.write("}")
+	i += 1
 store_file_name.close()
 
 # Variables for header prototypes array
