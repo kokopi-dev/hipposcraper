@@ -55,7 +55,7 @@ soup = BeautifulSoup(page, 'html.parser')
 
 # Making directory & changing to it
 find_dir = soup.find(string=re.compile("Directory: "))
-dir_name = dir_target.next_element.text
+dir_name = find_dir.next_element.text
 os.mkdir(dir_name)
 os.chdir(dir_name)
 
