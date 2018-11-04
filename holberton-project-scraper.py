@@ -17,8 +17,8 @@ arg = sys.argv[1:]
 count = len(arg)
 
 # Argument Limiter
-if count != 1:
-        print("Enter in project website link only.")
+if count != 2:
+        print("Enter in project website link only, followed by header file name only.")
         sys.exit()
 
 # Intranet login credentials
@@ -57,18 +57,21 @@ soup = BeautifulSoup(page, 'html.parser')
 #for li in find_proto_h:
 #       print(li.next_sibling.text)
 
+# Variables for function name array
 proto_store = []
 i = 0
 
-# Stores C file prototypes into array
+# Making function name array
 find_proto = soup.find_all(string=re.compile("Prototype: "))
 for li in find_proto:
 		proto_store.append(li.next_sibling.text.replace(";", ""))
 
-# Loop that creates files with names & fills in prototypes
+# Making C files with function name array
 find_file_name = soup.find_all(string=re.compile("File: "))
 for li in find_file_name:
-        store_file_name = open(li.next_sibling.text, "w+")                                                           
+	if (i == len(proto_store)):
+		break;
+        store_file_name = open(li.next_sibling.text, "w+")
         store_file_name.write('#include "holberton.h"\n')
         store_file_name.write("/**\n")
         store_file_name.write(" * main - Entry Point\n")   
@@ -79,3 +82,16 @@ for li in find_file_name:
         store_file_name.write("\n")
         store_file_name.write("}")
         i += 1
+
+# Making header file
+make_header = open(sys.argv[1], "w+")
+make_header.write("#ifndef\n")
+make_header.write("#define\n")
+make_header.write("\n")
+make_header.write("#include <stdio.h>\n")
+make_header.write("#include <stdlib.h>\n")
+make_header.write("\n")
+make_header.write("int _putchar(char c);\n")
+make_header.write("\n")
+make_header.write("#endif /* */")
+
