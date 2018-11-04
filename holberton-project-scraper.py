@@ -48,15 +48,6 @@ my_keys.close()
 page = br.open(link)
 soup = BeautifulSoup(page, 'html.parser')
 
-
-# loop through file:
-# project_file_name = code
-# open(project_file_name, "w+")
-#find_proto_h = soup.find_all(string=re.compile("Prototype: "))
-
-#for li in find_proto_h:
-#       print(li.next_sibling.text)
-
 # Variables for function name array
 proto_store = []
 i = 0
@@ -83,8 +74,17 @@ for li in find_file_name:
         store_file_name.write("}")
         i += 1
 
+# Variables for header prototypes
+proto_h_store = []
+n = 0
+
+# Header prototype finder
+find_proto_h = soup.find_all(string=re.compile("Prototype: "))
+for li in find_proto_h:
+        proto_h_store.append(li.next_sibling.text)
+
 # Making header file
-make_header = open(sys.argv[1], "w+")
+make_header = open(sys.argv[2], "w+")
 make_header.write("#ifndef\n")
 make_header.write("#define\n")
 make_header.write("\n")
@@ -92,6 +92,14 @@ make_header.write("#include <stdio.h>\n")
 make_header.write("#include <stdlib.h>\n")
 make_header.write("\n")
 make_header.write("int _putchar(char c);\n")
+
+for li in find_proto_h:
+        if (n == len(proto_h_store)):
+                break;
+        header.write(proto_h_store[n])
+        header.write("\n")
+        n += 1
+
 make_header.write("\n")
 make_header.write("#endif /* */")
 
