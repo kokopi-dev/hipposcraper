@@ -5,6 +5,7 @@ import mechanize
 import sys
 import re
 import json
+import string
 from bs4 import BeautifulSoup
 
 # Parses a webpage and returns the html
@@ -67,10 +68,11 @@ for li in find_file_name:
 	if (i == len(proto_store)):
 		break;
         store_file_name = open(li.next_sibling.text, "w+")
-        store_file_name.write('#include "%s"\n' % sys.argv[2])
+        store_file_name.write('#include "%s"\n\n' % sys.argv[2])
         store_file_name.write("/**\n")
-        store_file_name.write(" * main - Entry Point\n")   
-        store_file_name.write(" * Return: 0\n")
+        store_file_name.write(" * main - Entry Point\n")
+	store_file_name.write(" *\n")
+        store_file_name.write(" * Return:\n")
         store_file_name.write(" */\n")
         store_file_name.write("%s\n" % proto_store[i])
         store_file_name.write("{\n")
@@ -87,13 +89,16 @@ find_proto_h = soup.find_all(string=re.compile("Prototype: "))
 for li in find_proto_h:
         proto_h_store.append(li.next_sibling.text)
 
+# Making header include guard string
+include_guard = sys.argv[2]
+include_guard = include_guard.replace('.', '_', 1)
+include_guard = include_guard.upper()
+
 # Making header file
 make_header = open(sys.argv[2], "w+")
-make_header.write("#ifndef\n")
-make_header.write("#define\n")
+make_header.write('#ifndef %s\n' % include_guard)
+make_header.write('#define %s\n' % include_guard)
 make_header.write("\n")
-make_header.write("#include <stdio.h>\n")
-make_header.write("#include <stdlib.h>\n")
 make_header.write("\n")
 make_header.write("int _putchar(char c);\n")
 
@@ -105,6 +110,6 @@ for li in find_proto_h:
         n += 1
 
 make_header.write("\n")
-make_header.write("#endif /* */")
+make_header.write('#endif /* %s */' % include_guard)
 
 # Making README
