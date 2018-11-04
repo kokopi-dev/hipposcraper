@@ -19,12 +19,19 @@ arg = sys.argv[1:]
 count = len(arg)
 
 # Argument Limiter
-# Change to 3 after finishing _putchar option
 if count != 2:
-        print("Enter in project url only, followed by header file name, followed by 'y' or 'n'.")
+        print("Enter in project url only, followed by header file name")
         sys.exit()
 
-# _putchar option variable
+# _putchar option variables and alert
+putchar_list = ['y', 'n'];
+putchar_y_n = raw_input("Do you want to add _putchar.c? (y/n): ")
+if (putchar_y_n not in putchar_list):
+        print("Enter in 'y' or 'n'.")
+if (putchar_y_n == 'y'):
+        putchar_res = 1
+if (putchar_y_n == 'n'):
+        putchar_res = 0
 
 # Intranet login credentials
 with open("/CHANGE_TO_YOUR_DIRECTORY_HERE/auth_data.json", "r") as my_keys:
@@ -60,6 +67,22 @@ os.mkdir(dir_name)
 os.chdir(dir_name)
 
 # Making _putchar
+if (putchar_res == 1):
+        h_putchar = open("_putchar.c", "w+")
+        h_putchar.write("#include <unistd.h>\n")
+        h_putchar.write("\n")
+        h_putchar.write("/**\n")
+        h_putchar.write(" * _putchar - writes the character c to stdout\n")
+        h_putchar.write(" * @c: The character to print\n")
+        h_putchar.write(" *\n")
+        h_putchar.write(" * Return: On success 1.\n")
+        h_putchar.write(" * On error, -1 is returned, and errno is set appropriately.\n")
+        h_putchar.write(" */\n")
+        h_putchar.write("int _putchar(char c)\n")
+        h_putchar.write("{\n")
+        h_putchar.write("       return (write(1, &c, 1));\n")
+        h_putchar.write("}")
+h_putchar.close()
 
 # Variables for function name array
 proto_store = []
@@ -109,18 +132,17 @@ make_header.write('#ifndef %s\n' % include_guard)
 make_header.write('#define %s\n' % include_guard)
 make_header.write("\n")
 make_header.write("\n")
-# If statement for _putchar option
-make_header.write("int _putchar(char c);\n")
+
+if (putchar_res == 1):
+	make_header.write("int _putchar(char c);\n")
 
 for li in find_proto_h:
-        if (n == len(proto_h_store)):
-                break;
-        make_header.write(proto_h_store[n])
-        make_header.write("\n")
-        n += 1
+	if (n == len(proto_h_store)):
+		break;
+	make_header.write(proto_h_store[n])
+	make_header.write("\n")
+	n += 1
 
 make_header.write("\n")
 make_header.write('#endif /* %s */' % include_guard)
 make_header.close()
-
-# Making README
