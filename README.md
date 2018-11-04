@@ -4,6 +4,7 @@
 
 ## Required things
 
+* sudo apt-get install pip
 * pip install mechanize
 * pip install beautifulsoup4
 
@@ -11,15 +12,17 @@
 
 ## Description
 
-To automate creating templates for Holberton projects.
+Automating file template creation for Holberton projects.
 
 ## Instructions
 
-Type cd in terminal, then open up '.bashrc' with your text editor. then enter in the alias corresponding with the ones that you want to use (alias name totally up to you if you want to change them).
+**Install required things above**
+
+**Setting Alias:** Type cd in terminal, then open up '.bashrc' with your text editor. then enter in the alias corresponding with the ones that you want to use (alias name totally up to you if you want to change them).
 
 Example alias below each file in this readme, replace 'DIRECTORY' with your pwd where the script is located.
 
-**In holberton-project-scraper.py, change the directory your auth_data.json file is in:**
+**Setting User/Pass Directory:** In holberton-project-scraper.py, change the directory your auth_data.json file is in:
 ![Change DIR](https://i.imgur.com/ZUemUzV.png)
 
 ---

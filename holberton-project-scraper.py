@@ -1,3 +1,4 @@
+import os
 import urllib2
 import cookielib
 import mechanize
@@ -5,9 +6,6 @@ import sys
 import re
 import json
 from bs4 import BeautifulSoup
-
-# fill in prototype in each file
-# create all files in x project website
 
 # Parses a webpage and returns the html
 def scrape_page(link):
@@ -20,9 +18,12 @@ arg = sys.argv[1:]
 count = len(arg)
 
 # Argument Limiter
-if count != 2:
-        print("Enter in project website link only, followed by header file name only.")
+if count != 3:
+        print("Enter in project url only, followed by header file name, followed by 'y' or 'n'.")
         sys.exit()
+
+# _putchar option
+
 
 # Intranet login credentials
 with open("/CHANGE_TO_YOUR_DIRECTORY_HERE/auth_data.json", "r") as my_keys:
@@ -77,11 +78,11 @@ for li in find_file_name:
         store_file_name.write("}")
         i += 1
 
-# Variables for header prototypes
+# Variables for header prototypes array
 proto_h_store = []
 n = 0
 
-# Header prototype finder
+# Find header prototype
 find_proto_h = soup.find_all(string=re.compile("Prototype: "))
 for li in find_proto_h:
         proto_h_store.append(li.next_sibling.text)
@@ -106,3 +107,4 @@ for li in find_proto_h:
 make_header.write("\n")
 make_header.write("#endif /* */")
 
+# Making README
