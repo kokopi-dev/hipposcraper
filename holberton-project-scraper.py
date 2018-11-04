@@ -66,7 +66,7 @@ for li in find_file_name:
 	if (i == len(proto_store)):
 		break;
         store_file_name = open(li.next_sibling.text, "w+")
-        store_file_name.write('#include "holberton.h"\n')
+        store_file_name.write('#include "%s"\n' % sys.argv[2])
         store_file_name.write("/**\n")
         store_file_name.write(" * main - Entry Point\n")   
         store_file_name.write(" * Return: 0\n")
