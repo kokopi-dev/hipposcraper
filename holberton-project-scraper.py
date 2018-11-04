@@ -23,8 +23,7 @@ if count != 3:
         print("Enter in project url only, followed by header file name, followed by 'y' or 'n'.")
         sys.exit()
 
-# _putchar option
-
+# _putchar option variable
 
 # Intranet login credentials
 with open("/CHANGE_TO_YOUR_DIRECTORY_HERE/auth_data.json", "r") as my_keys:
@@ -53,6 +52,14 @@ my_keys.close()
 page = br.open(link)
 soup = BeautifulSoup(page, 'html.parser')
 
+# Making directory & changing to it
+find_dir = soup.find(string=re.compile("Directory: "))
+dir_name = dir_target.next_element.text
+os.mkdir(dir_name)
+os.chdir(dir_name)
+
+# Making _putchar
+
 # Variables for function name array
 proto_store = []
 i = 0
@@ -79,6 +86,7 @@ for li in find_file_name:
         store_file_name.write("\n")
         store_file_name.write("}")
         i += 1
+store_file_name.close()
 
 # Variables for header prototypes array
 proto_h_store = []
@@ -100,6 +108,7 @@ make_header.write('#ifndef %s\n' % include_guard)
 make_header.write('#define %s\n' % include_guard)
 make_header.write("\n")
 make_header.write("\n")
+# If statement for _putchar option
 make_header.write("int _putchar(char c);\n")
 
 for li in find_proto_h:
@@ -111,5 +120,6 @@ for li in find_proto_h:
 
 make_header.write("\n")
 make_header.write('#endif /* %s */' % include_guard)
+make_header.close()
 
 # Making README
