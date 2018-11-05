@@ -18,10 +18,30 @@ def scrape_page(link):
 arg = sys.argv[1:]
 count = len(arg)
 
-# Argument Limiter
+# Argument Checker
+valid_link = 'intranet.hbtn.io/projects'
+valid_header = '.h'
+
+if count > 2:
+	print("  <Error: Too many arguments (must be two)>")
+elif count == 1:
+	print("  <Error: Too few arguments (must be two)>")
+	
 if count != 2:
-        print("Enter in project url only, followed by header file name")
-        sys.exit()
+	link = raw_input("Enter link to project: ")
+else:
+	link = sys.argv[1]
+while not (valid_link in link):
+	print("  <Error: Invalid link (must be to project on intranet.hbtn.io)>")
+	link = raw_input("Enter link to project: ")
+
+if count != 2:
+	header = raw_input("Enter name for project header file: ")
+else:
+	header = sys.argv[2]
+while not (header[-2:] in valid_header):
+	print("  <Error: Header file must end in .h>")
+	header = raw_input("Enter name for project header file: ")
 
 # _putchar option variables and alert
 putchar_list = ['y', 'n'];
@@ -34,12 +54,10 @@ if (putchar_y_n == 'n'):
         putchar_res = 0
 
 # Intranet login credentials
-with open("/CHANGE_TO_YOUR_DIRECTORY_HERE/auth_data.json", "r") as my_keys:
+with open("/home/vagrant/holberton-python-scripts/auth_data.json", "r") as my_keys:
         intra_keys = json.load(my_keys)
 
-
-# Login Variables
-link = sys.argv[1]
+# Login Variable
 login = "https://intranet.hbtn.io/auth/sign_in"
 
 # Logging into website
@@ -91,7 +109,7 @@ i = 0
 # Making function name array
 find_proto = soup.find_all(string=re.compile("Prototype: "))
 for li in find_proto:
-		proto_store.append(li.next_sibling.text.replace(";", ""))
+	proto_store.append(li.next_sibling.text.replace(";", ""))
 
 # Making C files with function name array
 find_file_name = soup.find_all(string=re.compile("File: "))
@@ -99,7 +117,7 @@ for li in find_file_name:
 	if (i == len(proto_store)):
 		break;
 	store_file_name = open(li.next_sibling.text, "w+")
-	store_file_name.write('#include "%s"\n\n' % sys.argv[2])
+	store_file_name.write('#include "%s"\n\n' % header)
 	store_file_name.write("/**\n")
 	store_file_name.write(" * main - Entry Point\n")
 	store_file_name.write(" *\n")
@@ -122,7 +140,7 @@ for li in find_proto_h:
         proto_h_store.append(li.next_sibling.text)
 
 # Making header include guard string
-include_guard = sys.argv[2]
+include_guard = header 
 include_guard = include_guard.replace('.', '_', 1)
 include_guard = include_guard.upper()
 
@@ -130,7 +148,6 @@ include_guard = include_guard.upper()
 make_header = open(sys.argv[2], "w+")
 make_header.write('#ifndef %s\n' % include_guard)
 make_header.write('#define %s\n' % include_guard)
-make_header.write("\n")
 make_header.write("\n")
 
 if (putchar_res == 1):
