@@ -68,21 +68,21 @@ os.chdir(dir_name)
 
 # Making _putchar
 if (putchar_res == 1):
-        h_putchar = open("_putchar.c", "w+")
-        h_putchar.write("#include <unistd.h>\n")
-        h_putchar.write("\n")
-        h_putchar.write("/**\n")
-        h_putchar.write(" * _putchar - writes the character c to stdout\n")
-        h_putchar.write(" * @c: The character to print\n")
-        h_putchar.write(" *\n")
-        h_putchar.write(" * Return: On success 1.\n")
-        h_putchar.write(" * On error, -1 is returned, and errno is set appropriately.\n")
-        h_putchar.write(" */\n")
-        h_putchar.write("int _putchar(char c)\n")
-        h_putchar.write("{\n")
-        h_putchar.write("       return (write(1, &c, 1));\n")
-        h_putchar.write("}")
-h_putchar.close()
+	h_putchar = open("_putchar.c", "w+")
+	h_putchar.write("#include <unistd.h>\n")
+	h_putchar.write("\n")
+	h_putchar.write("/**\n")
+	h_putchar.write(" * _putchar - writes the character c to stdout\n")
+	h_putchar.write(" * @c: The character to print\n")
+	h_putchar.write(" *\n")
+	h_putchar.write(" * Return: On success 1.\n")
+	h_putchar.write(" * On error, -1 is returned, and errno is set appropriately.\n")
+	h_putchar.write(" */\n")
+	h_putchar.write("int _putchar(char c)\n")
+	h_putchar.write("{\n")
+	h_putchar.write("       return (write(1, &c, 1));\n")
+	h_putchar.write("}")
+	h_putchar.close()
 
 # Variables for function name array
 proto_store = []
@@ -98,10 +98,10 @@ find_file_name = soup.find_all(string=re.compile("File: "))
 for li in find_file_name:
 	if (i == len(proto_store)):
 		break;
-        store_file_name = open(li.next_sibling.text, "w+")
-        store_file_name.write('#include "%s"\n\n' % sys.argv[2])
-        store_file_name.write("/**\n")
-        store_file_name.write(" * main - Entry Point\n")
+	store_file_name = open(li.next_sibling.text, "w+")
+	store_file_name.write('#include "%s"\n\n' % sys.argv[2])
+	store_file_name.write("/**\n")
+	store_file_name.write(" * main - Entry Point\n")
 	store_file_name.write(" *\n")
 	store_file_name.write(" * Return:\n")
 	store_file_name.write(" */\n")
@@ -109,8 +109,8 @@ for li in find_file_name:
 	store_file_name.write("{\n")
 	store_file_name.write("\n")
 	store_file_name.write("}")
+	store_file_name.close()
 	i += 1
-store_file_name.close()
 
 # Variables for header prototypes array
 proto_h_store = []

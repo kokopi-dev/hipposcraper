@@ -47,3 +47,8 @@ Example alias below each file in this readme, replace 'DIRECTORY' with your pwd 
 
 ## Author
 * **Derrick Gee** - [kai-dg](https://github.com/kai-dg)
+
+---
+
+## Contributors
+* **Brennan D Baraban** - [bdbaraban](https://github.com/bdbaraban)
