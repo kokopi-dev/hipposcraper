@@ -131,6 +131,8 @@ make_header = open(sys.argv[2], "w+")
 make_header.write('#ifndef %s\n' % include_guard)
 make_header.write('#define %s\n' % include_guard)
 make_header.write("\n")
+make_header.write("#include <stdio.h>\n")
+make_header.write("#include <stdlib.h>\n")
 make_header.write("\n")
 
 if (putchar_res == 1):
