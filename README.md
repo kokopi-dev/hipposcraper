@@ -29,8 +29,9 @@ Example alias below each file in this readme, replace 'DIRECTORY' with your pwd 
 
 ### [Holberton Proj. Scraper C/Header/README](./holberton-project-scraper.py)
 * alias hos='python /DIRECTORY/holberton-project-scraper.py'
-* takes 2 arguments: the project page url, and header file name
-* then it asks if you want _putchar.c, type 'y' or 'n'
+* takes 1 argument: the project page url
+* then asks for the header file name
+* then asks if you want _putchar.c, type 'y' or 'n'
 
 ### [Auth Data](./auth_data.json)
 * Store your user/pass in here
@@ -41,7 +42,7 @@ Example alias below each file in this readme, replace 'DIRECTORY' with your pwd 
 ---
 ## Example of hos
 
-![Example](https://i.imgur.com/WoXBDUQ.png)
+![Example](https://i.imgur.com/X8sB5a0.png)
 
 ---
 
