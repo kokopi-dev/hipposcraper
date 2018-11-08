@@ -14,16 +14,23 @@
 
 Automating file template creation for Holberton projects.
 
+| C Projects  | Python Projects |
+| ------------- | ------------- |
+| C Templates  | Coming Soon  |
+| Header file  | Coming soon  |
+| Putchar file  | Coming soon  |
+| Main.c files  | Coming soon  |
+| README.md  | Coming soon  |
+
 ## Instructions
 
 **Install required things above**
 
 **Setting Alias:** Type cd in terminal, then open up '.bashrc' with your text editor. then enter in the alias corresponding with the ones that you want to use (alias name totally up to you if you want to change them).
 
-Example alias below each file in this readme, replace 'DIRECTORY' with your pwd where the script is located.
+Example alias below each file in this readme.
 
-**Setting User/Pass Directory:** In holberton-project-scraper.py, change the directory your auth_data.json file is in:
-![Change DIR](https://i.imgur.com/ZUemUzV.png)
+**Setting User/Pass:** Enter in your holberton email/pass in the [auth_data.json](./auth_data.json) file.
 
 ---
 
@@ -42,7 +49,7 @@ Example alias below each file in this readme, replace 'DIRECTORY' with your pwd 
 ---
 ## Example of hos
 
-![Example](https://i.imgur.com/X8sB5a0.png)
+![Example](https://i.imgur.com/3gVa0Qq.png)
 
 ---
 

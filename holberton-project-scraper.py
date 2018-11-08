@@ -1,11 +1,5 @@
-import os
-import urllib2
-import cookielib
-import mechanize
-import sys
-import re
-import json
-import string
+import os, sys, re, string, json
+import urllib2, cookielib, mechanize
 from bs4 import BeautifulSoup
 
 # Parses a webpage and returns the html
@@ -13,6 +7,9 @@ def scrape_page(link):
         page = urllib.urlopen(link)
         soup = BeautifulSoup(page, 'html.parser')
         return soup
+
+# Global variables
+current_path = os.path.dirname(os.path.abspath(__file__))
 
 # Command Line Arguments
 arg = sys.argv[1:]
@@ -57,7 +54,7 @@ if (putchar_y_n == 'n'):
         putchar_res = 0
 
 # Intranet login credentials
-with open("/home/vagrant/others/personal-scripts/personal_auth_data.json", "r") as my_keys:
+with open(("%s/auth_data.json" % current_path), "r") as my_keys:
         intra_keys = json.load(my_keys)
 
 # Login Variable
@@ -190,3 +187,23 @@ if (no_header == 0):
         make_header.write("\n")
         make_header.write('#endif /* %s */' % include_guard)
         make_header.close()
+
+# Variables for making main.c files
+pre_array = []
+i = 0
+find_pre = soup.select("pre")
+pre_array = find_pre
+
+# Finding main.c files
+find_main_text = pre_array[0].text
+find_main = find_main_text.find("-main.c")
+
+# Making main.c files
+if find_main is not -1:
+	for pre in find_pre:
+		if (i + 1 == len(pre_array)):
+			break
+		main_c = open(("%d-main.c" % i), "w+")
+		main_c.write(pre_array[i].text.split("main.c")[1].split("}")[0] + "}")
+		main_c.close()
+		i += 1
