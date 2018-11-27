@@ -135,14 +135,22 @@ if (no_header == 0):
         # Making C files with function name array
         find_file_name = soup.find_all(string=re.compile("File: "))
         for li in find_file_name:
-                if (i == len(proto_store)):
-                        break;
+ 		if (i == len(proto_store)):
+			break;
+		# Pulling out name of function for documentation
+		func_name = proto_store[i]
+		func_name = func_name.split("(", 1)[0]
+		tmp_split = func_name.split(" ")
+		func_name = tmp_split[len(tmp_split) - 1]
+		tmp_split = func_name.split("*")
+		func_name = tmp_split[len(tmp_split) - 1]
+
                 store_file_name = open(li.next_sibling.text, "w+")
                 store_file_name.write('#include "%s"\n\n' % header)
                 store_file_name.write("/**\n")
-                store_file_name.write(" * main - Entry Point\n")
+                store_file_name.write(" * %s -\n" % func_name)
                 store_file_name.write(" *\n")
-                store_file_name.write(" * Return:\n")
+                store_file_name.write(" * Return: \n")
                 store_file_name.write(" */\n")
                 store_file_name.write("%s\n" % proto_store[i])
                 store_file_name.write("{\n")
@@ -188,22 +196,17 @@ if (no_header == 0):
         make_header.write('#endif /* %s */' % include_guard)
         make_header.close()
 
-# Variables for making main.c files
-pre_array = []
-i = 0
+# Finding and making main.c files
 find_pre = soup.select("pre")
-pre_array = find_pre
+for pretag in find_pre:
+	find_main = pretag.text.find("-main.c")
 
-# Finding main.c files
-find_main_text = pre_array[0].text
-find_main = find_main_text.find("-main.c")
-
-# Making main.c files
-if find_main is not -1:
-	for pre in find_pre:
-		if (i + 1 == len(pre_array)):
-			break
-		main_c = open(("%d-main.c" % i), "w+")
-		main_c.write(pre_array[i].text.split("main.c")[1].split("}")[0] + "}")
+	if find_main is not -1:
+		main_file = pretag.text.split("cat ", 1)[1]
+		main_file = main_file.split(".c", 1)[0] + ".c"
+		main_text = pretag.text.split(main_file, 1)[1]
+		main_text = main_text.split("\n", 1)[1]
+		main_text = main_text.split("return (0);", 1)[0]
+		main_c = open(main_file, "w+")
+		main_c.write(main_text + "return(0);\n}")
 		main_c.close()
-		i += 1
