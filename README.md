@@ -16,11 +16,11 @@ Automating file template creation for Holberton projects, below is the chart of 
 
 | C Projects  | Python Projects | Javascript |
 | ------------- | ------------- | ------------- |
-| C Templates  | Coming Soon | Coming Soon |
-| Header file  | Coming soon |  Coming Soon |
-| Putchar file  | Coming soon |  Coming Soon |
-| Main.c files  | Coming soon |  Coming Soon |
-| README.md  | Coming soon |  Coming Soon |
+| C Templates | Coming Soon | Coming Soon |
+| Header file | Coming soon |  Coming Soon |
+| Putchar file | Coming soon |  Coming Soon |
+| Main.c files | Coming soon |  Coming Soon |
+| README.md | Coming soon |  Coming Soon |
 
 ## Instructions
 
@@ -49,8 +49,8 @@ Example alias below each file in this readme.
 ---
 ## Example of hos
 
-![Example](https://i.imgur.com/3gVa0Qq.png)
-
+[![Watch the video](https://i.imgur.com/3gVa0Qq.png)](https://puu.sh/C5Ogn/2e531610a2.mp4)
+Click the image to watch a video version.
 ---
 
 ## Author
