@@ -26,7 +26,7 @@ Automating file template creation for Holberton projects, below is the chart of 
 
 **Install required things above**
 
-**Setting User/Pass:** Enter in your holberton email/pass in the [auth_data.json](./auth_data.json) file.
+**Setting User Information:** Enter in your Holberton intranet username and password as well as your Github name, username, and profile link in the [auth_data.json](./auth_data.json) file.
 
 **Setting Alias:** Type cd in terminal, then open up '.bashrc' with your text editor. then enter in the alias corresponding with the ones that you want to use (alias name totally up to you if you want to change them).
 
