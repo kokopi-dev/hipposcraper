@@ -8,6 +8,7 @@
 * pip install mechanize
 * pip install beautifulsoup4
 
+**NOTE: This program only works with python2, make sure your alias is 'python2'.**
 ---
 
 ## Description
@@ -35,7 +36,7 @@ Example alias below each file in this readme.
 ---
 
 ### [Holberton Proj. Scraper C/Header/README](./holberton-project-scraper.py)
-* alias hos='python /DIRECTORY/holberton-project-scraper.py'
+* alias hos='python2 /DIRECTORY/holberton-project-scraper.py'
 * takes 1 argument: the project page url
 * then asks for the header file name, skip by leaving blank and press enter
 * then asks if you want _putchar.c, type 'y' or 'n'
@@ -44,7 +45,7 @@ Example alias below each file in this readme.
 * Store your user/pass in here
 
 ### [Holberton README.md Template](./holberton-read_t.py)
-* alias hotr='python /DIRECTORY/holberton-read_t.py'
+* alias hotr='python2 /DIRECTORY/holberton-read_t.py'
 
 ---
 ## Example of hos
