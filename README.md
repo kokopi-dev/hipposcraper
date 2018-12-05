@@ -1,4 +1,4 @@
-# Python Scripts for Holberton Projects
+# Python Scripts for Automating Holberton Projects
 
 ---
 
@@ -9,6 +9,9 @@
 * pip install beautifulsoup4
 
 **NOTE: This program only works with python2, make sure your alias is 'python2'.**
+* Mechanize is not supported by python3
+* Python3 rebuild coming soon
+
 ---
 
 ## Description
@@ -35,12 +38,12 @@ Example alias below each file in this readme.
 
 ---
 
-### [Holberton Proj. Scraper Python](./project-scraper_py.py)
-* alias hopy='python2 /DIRECTORY/project-scraper_py.py'
+### [Holberton Proj. Scraper Python](./project-py_scraper.py)
+* alias hopy='python2 /DIRECTORY/project-py_scraper.py'
 * takes 1 argument: the project url
 
-### [Holberton Proj. Scraper C](./holberton-project-scraper.py)
-* alias hos='python2 /DIRECTORY/holberton-project-scraper.py'
+### [Holberton Proj. Scraper C](./project-c_scraper.py)
+* alias hos='python2 /DIRECTORY/project-c_scraper.py'
 * takes 1 argument: the project page url
 * then asks for the header file name, skip by leaving blank and press enter
 * then asks if you want _putchar.c, type 'y' or 'n'
@@ -52,7 +55,7 @@ Example alias below each file in this readme.
 * alias hotr='python2 /DIRECTORY/holberton-read_t.py'
 
 ---
-## Example of hos
+## Example of the C scraper
 
 [![Watch the video](https://i.imgur.com/3gVa0Qq.png)](https://puu.sh/C5Ogn/2e531610a2.mp4)
 Click the image to watch a video version.
