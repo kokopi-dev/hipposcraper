@@ -17,9 +17,9 @@ Automating file template creation for Holberton projects, below is the chart of 
 
 | C Projects  | Python Projects | Javascript |
 | ------------- | ------------- | ------------- |
-| C Templates | Coming Soon | Coming Soon |
-| Header file | Coming soon |  Coming Soon |
-| Putchar file | Coming soon |  Coming Soon |
+| C Templates | Py Templates | Coming Soon |
+| Header file | C files |  Coming Soon |
+| Putchar file | Header files |  Coming Soon |
 | Main.c files | Coming soon |  Coming Soon |
 | README.md | Coming soon |  Coming Soon |
 
@@ -35,7 +35,11 @@ Example alias below each file in this readme.
 
 ---
 
-### [Holberton Proj. Scraper C/Header/README](./holberton-project-scraper.py)
+### [Holberton Proj. Scraper Python](./project-scraper_py.py)
+* alias hopy='python2 /DIRECTORY/project-scraper_py.py'
+* takes 1 argument: the project url
+
+### [Holberton Proj. Scraper C](./holberton-project-scraper.py)
 * alias hos='python2 /DIRECTORY/holberton-project-scraper.py'
 * takes 1 argument: the project page url
 * then asks for the header file name, skip by leaving blank and press enter
