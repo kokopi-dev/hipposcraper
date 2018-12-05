@@ -77,3 +77,6 @@ for li in find_file_name:
         make_file = open(text_file, "w+")
         make_file.write("#!/usr/bin/python3")
         make_file.close()
+
+# Giving permissions to .py files
+os.system("chmod u+x *.py")
