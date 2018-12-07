@@ -1,7 +1,7 @@
 {
-	"intra_user_key": "375@holbertonschool.com",
-	"intra_pass_key": "Tullyharper15!",
-	"author_name": "Brennan D Baraban",
-	"github_username": "bdbaraban",
-	"github_profile_link": "https://github.com/bdbaraban"
+	"intra_user_key": "YOUR_HOLBERTON_INTRANET_USERNAME",
+	"intra_pass_key": "YOUR_HOLBERTON_INTRANET_PASSWORD",
+	"author_name": "YOUR_NAME",
+	"github_username": "YOUR_GITHUB_USERNAME",
+	"github_profile_link": "YOUR_GITHUB_PROFILE_LINK"
 }
