@@ -1,3 +1,5 @@
+#!/usr/bin/python2
+
 import os, sys, re, string, json
 import urllib2, cookielib, mechanize
 from bs4 import BeautifulSoup
@@ -77,6 +79,23 @@ for li in find_file_name:
         make_file = open(text_file, "w+")
         make_file.write("#!/usr/bin/python3")
         make_file.close()
+
+find_pre = soup.select("pre")
+for pretag in find_pre:
+    find_test = pretag.text.find("cat")
+    find_py = pretag.text.find(".py")
+
+    if find_test != -1 and find_py != -1:
+        test_file = pretag.text.split("cat ", 1)[1]
+        test_file = test_file.split(".py", 1)[0] + ".py"
+        test_text = pretag.text.split(test_file, 1)[1]
+        test_text = test_text.split("\n", 1)[1]
+        test_text = test_text.split("@", 1)[0]
+        test_text = test_text.split("\n")
+        test_py = open(test_file, "w+")
+        for i in range(len(test_text) - 2):
+            test_py.write(test_text[i] + "\n")
+        test_py.close() 
 
 # Giving permissions to .py files
 os.system("chmod u+x *.py")
