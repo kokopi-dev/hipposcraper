@@ -80,7 +80,6 @@ for li in find_file_name:
         make_file.write("#!/usr/bin/python3")
         make_file.close()
 
-# Finding and making test files
 find_pre = soup.select("pre")
 for pretag in find_pre:
     find_test = pretag.text.find("cat")

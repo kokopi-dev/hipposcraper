@@ -4,9 +4,9 @@ from bs4 import BeautifulSoup
 
 # Parses a webpage and returns the html
 def scrape_page(link):
-        page = urllib.urlopen(link)
-        soup = BeautifulSoup(page, 'html.parser')
-        return soup
+    page = urllib.urlopen(link)
+    soup = BeautifulSoup(page, 'html.parser')
+    return soup
 
 # Global variables
 current_path = os.path.dirname(os.path.abspath(__file__))
