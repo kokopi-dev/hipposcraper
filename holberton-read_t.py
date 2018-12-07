@@ -1,3 +1,8 @@
+import os, json
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+with open(("%s/auth_data.json" % current_path), "r") as my_keys:
+	github_keys = json.load(my_keys)
 rtemp = open("README.md", "w+")
 
 rtemp.write("# Project Title\n")
@@ -34,4 +39,6 @@ rtemp.write("\n")
 rtemp.write("---\n")
 rtemp.write("\n")
 rtemp.write("## Author\n")
-rtemp.write("* **Derrick Gee** - [kai-dg](https://github.com/kai-dg)")
+rtemp.write("* **%s** - " % github_keys["author_name"])
+rtemp.write("[%s]" % github_keys["github_username"])
+rtemp.write("(%s)" % github_keys["github_profile_link"])
