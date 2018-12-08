@@ -10,7 +10,6 @@
 
 **NOTE: This program only works with python2, make sure your alias is 'python2'.**
 * Mechanize is not supported by python3
-* Python3 rebuild coming soon
 
 ---
 
@@ -52,7 +51,7 @@ Example of alias below file names in this readme.
 ---
 ## Example of the C scraper
 
-[![demo](https://i.imgur.com/KmIzU4f.png)]
+[demo](https://i.imgur.com/KmIzU4f.png)
 ---
 
 ## Author
