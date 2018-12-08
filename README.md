@@ -51,7 +51,7 @@ Example of alias below file names in this readme.
 ---
 ## Example of the C scraper
 
-[demo](https://i.imgur.com/KmIzU4f.png)
+![demo](https://i.imgur.com/KmIzU4f.png)
 ---
 
 ## Author
