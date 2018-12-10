@@ -2,6 +2,7 @@
 import os, sys, re, string, json
 import urllib2, cookielib, mechanize
 from bs4 import BeautifulSoup
+from test_file_scraper import scrape_tests
 
 # Program variables
 current_path = os.path.dirname(os.path.abspath(__file__))
@@ -26,7 +27,7 @@ while not (valid_link in link):
     link = raw_input("Enter link to project: ")
 
 # Intranet login credentials
-with open(("%s/personal_auth_data.json" % current_path), "r") as my_keys:
+with open(("%s/auth_data.json" % current_path), "r") as my_keys:
     intra_keys = json.load(my_keys)
 
 # Login Variable
@@ -83,21 +84,7 @@ if find_project_type == "holbertonschool-higher_level_programming":
 
     # Finding and making py main files
     find_pre = soup.select("pre")
-    for pretag in find_pre:
-        find_test = pretag.text.find("cat")
-        find_py = pretag.text.find(".py")
-
-        if find_test != -1 and find_py != -1:
-            test_file = pretag.text.split("cat ", 1)[1]
-            test_file = test_file.split(".py", 1)[0] + ".py"
-            test_text = pretag.text.split(test_file, 1)[1]
-            test_text = test_text.split("\n", 1)[1]
-            test_text = test_text.split("@", 1)[0]
-            test_text = test_text.split("\n")
-            test_py = open(test_file, "w+")
-            for i in range(len(test_text) - 2):
-                test_py.write(test_text[i] + "\n")
-            test_py.close()
+    scrape_tests(find_pre)
 
     # Giving permissions to .py files
     os.system("chmod u+x *.py")
@@ -247,18 +234,8 @@ elif find_project_type == "holbertonschool-low_level_programming":
 
     # Finding and making c main files
     find_pre = soup.select("pre")
-    for pretag in find_pre:
-        find_main = pretag.text.find("-main.c")
+    scrape_tests(find_pre)
 
-    if find_main is not -1:
-        main_file = pretag.text.split("cat ", 1)[1]
-        main_file = main_file.split(".c", 1)[0] + ".c"
-        main_text = pretag.text.split(main_file, 1)[1]
-        main_text = main_text.split("\n", 1)[1]
-        main_text = main_text.split("return (0);", 1)[0]
-        main_c = open(main_file, "w+")
-        main_c.write(main_text + "return (0);\n}")
-        main_c.close()
 else:
     print("Fatal Error: Could not find project's type\n")
     exit(1) 
