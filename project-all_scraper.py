@@ -2,7 +2,7 @@
 import os, sys, re, string, json
 import urllib2, cookielib, mechanize
 from bs4 import BeautifulSoup
-from scrapers.test_file_scraper import scrape_tests
+from scrapers import *
 
 # Program variables
 current_path = os.path.dirname(os.path.abspath(__file__))
@@ -66,21 +66,9 @@ if find_project_type == "holbertonschool-higher_level_programming":
     os.mkdir(dir_name)
     os.chdir(dir_name)
 
-    # Creating file(s)
+    # Creating file(s) from scrapers.py_scraper
     find_file_name = soup.find_all(string=re.compile("File: "))
-    for li in find_file_name:
-        text_file = li.next_sibling.text
-        find_comma = text_file.find(",")
-        # Handling multiple files
-        if find_comma != -1:
-            make_comma1 = open(text_file[:find_comma], "w+")
-            make_comma2 = open(text_file[find_comma:].strip(", "), "w+")
-            make_comma1.close()
-            make_comma2.close()
-        else:
-            make_file = open(text_file, "w+")
-            make_file.write("#!/usr/bin/python3")
-            make_file.close()
+    scrape_py(find_file_name)
 
     # Finding and making py main files
     find_pre = soup.select("pre")
@@ -97,35 +85,20 @@ elif find_project_type == "holbertonschool-low_level_programming":
     os.mkdir(dir_name)
     os.chdir(dir_name)
 
-    # Find _putchar
+    # Setting _putchar variables and scraping it
     find_putchar = soup.find(string=re.compile("You are allowed to use"))
-    # Set _putchar variable
     find_putchar_name = ""
-    if find_putchar != None:
-        find_putchar_name = find_putchar.next_sibling.text
-    # Making _putchar
-    if find_putchar_name == "_putchar" and find_putchar_name != None:
-        h_putchar = open("_putchar.c", "w+")
-        h_putchar.write("#include <unistd.h>\n")
-        h_putchar.write("\n")
-        h_putchar.write("/**\n")
-        h_putchar.write(" * _putchar - writes the character c to stdout\n")
-        h_putchar.write(" * @c: The character to print\n")
-        h_putchar.write(" *\n")
-        h_putchar.write(" * Return: On success 1.\n")
-        h_putchar.write(" * On error, -1 is returned, and errno is set appropriately.\n")
-        h_putchar.write(" */\n")
-        h_putchar.write("int _putchar(char c)\n")
-        h_putchar.write("{\n")
-        h_putchar.write("       return (write(1, &c, 1));\n")
-        h_putchar.write("}")
-        h_putchar.close()
+    scrape_putchar(find_putchar, find_putchar_name)
 
-    # Find header file
-    find_header = soup.find(string=re.compile("forget to push your header file")).previous_element
+    # Setting header variable
+    thereIsHeader = 0
+    try:
+        find_header = soup.find(string=re.compile("forget to push your header file")).previous_element
+    except AttributeError:
+        thereIsHeader = 1
 
     # Make header file, if none, skip and make files
-    if find_header is not -1:
+    if thereIsHeader == 0:
         # Variables for function name array
         proto_store = []
         get_header_name = find_header.previous_element.previous_element
@@ -210,24 +183,9 @@ elif find_project_type == "holbertonschool-low_level_programming":
         make_header.close()
         
     else:
-        i = 0
         # Making C files with function name array
         find_file_name = soup.find_all(string=re.compile("File: "))
-        for li in find_file_name:
-            store_file_name = open(li.next_sibling.text, "w+")
-            store_file_name.write("#include <stdio.h>\n")
-            store_file_name.write("#include <stdlib.h>\n")
-            store_file_name.write("/**\n")
-            store_file_name.write(" * main - Entry Point\n")
-            store_file_name.write(" *\n")
-            store_file_name.write(" * Return:\n")
-            store_file_name.write(" */\n")
-            store_file_name.write("int main(void)\n")
-            store_file_name.write("{\n")
-            store_file_name.write("\n")
-            store_file_name.write("}")
-            store_file_name.close()
-            i += 1
+        scrape_c(find_file_name)
 
     # Giving permissions to .c files
     os.system("chmod u+x *.c")
