@@ -2,7 +2,7 @@
 import os, sys, re, string, json
 import urllib2, cookielib, mechanize
 from bs4 import BeautifulSoup
-from test_file_scraper import scrape_tests
+from scrapers.test_file_scraper import scrape_tests
 
 # Program variables
 current_path = os.path.dirname(os.path.abspath(__file__))
