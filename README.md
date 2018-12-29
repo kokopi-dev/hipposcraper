@@ -20,9 +20,9 @@ Automating file template creation for Holberton projects, below is the chart of 
 | C Projects | Python Projects | Javascript |
 | ------------- | ------------- | ------------- |
 | C Templates | Py Templates | Coming Soon |
-| Header file | C files |  Coming Soon |
-| Putchar file | Header files |  Coming Soon |
-| Main.c files | |  README.md |
+| Header file | C files | Coming Soon |
+| Putchar file | Header files | Coming Soon |
+| Main.c files | README.md |
 | README.md |
 
 ## Instructions
