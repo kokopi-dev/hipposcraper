@@ -22,8 +22,8 @@ Automating file template creation for Holberton projects, below is the chart of 
 | C Templates | Py Templates | Coming Soon |
 | Header file | C files |  Coming Soon |
 | Putchar file | Header files |  Coming Soon |
-| Main.c files | |  Coming Soon |
-| README.md | |  Coming Soon |
+| Main.c files | |  README.md |
+| README.md |
 
 ## Instructions
 
@@ -42,16 +42,22 @@ Example of alias below file names in this readme.
 * takes 1 argument: the project url
 * it will scrape accordingly depending on which project type (c, python, js) it is
 
-### [Auth Data](./auth_data.json)
-* Store your user/pass in here
-
 ### [Holberton README.md Template](./holberton-read_t.py)
 * alias hotr='python2 /DIRECTORY/holberton-read_t.py'
+* takes 1 argument: the project url
+
+### [Auth Data](./auth_data.json)
+* Store your user/pass in here
 
 ---
 ## Example of the C scraper
 
-![demo](https://i.imgur.com/KmIzU4f.png)
+![demo0](https://i.imgur.com/nIKUgA3.png)
+
+## Example of the README scraper
+
+![demo1](https://i.imgur.com/t6vOCwq.jpg)
+
 ---
 
 ## Author
