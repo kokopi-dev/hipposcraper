@@ -58,6 +58,12 @@ Example of alias below file names in this readme.
 
 ![demo1](https://i.imgur.com/t6vOCwq.jpg)
 
+## README Modifiying
+* Go into the [holberton-read_t.py](./holberton-read_t.py) file to modify the README template to your own if you want
+* The comment "README TEMPLATE BELOW" is where you can modify the .write functions
+* "SCRAPERS and "EXTRA SCRAPES" are where you can use the variables ending with "_arr" to modify your README
+* They are stored in lists, so you will need to loop through them to print them
+
 ---
 
 ## Author

@@ -71,12 +71,22 @@ else:
     print("Fatal Error: Could not find project's type\n")
     exit(1)
 
+# ---------------------------------
+# ----------- SCRAPERS ------------
+# ---------------------------------
+
 # Finding file names
 file_name = soup.find_all(string=re.compile("File: "))
 file_name_arr = []
 # Store file names into arr
 for idx in file_name:
-    file_name_arr.append(idx.next_sibling.text)
+    file_text = idx.next_sibling.text
+    # Finding comma index for multiple files listed
+    find_comma = file_text.find(",")
+    if find_comma != -1:
+        file_name_arr.append(file_text[:find_comma])
+    else:
+        file_name_arr.append(file_text)
 
 # Finding task titles
 my_tasks = soup.find_all("h4", class_="task")
@@ -92,10 +102,32 @@ task_info_arr = []
 # Store task info into arr
 for comments in task_info:
     if comments == " Task Body ":
-        task_info_arr.append(comments.next_element.next_element.text)
+        task_info_arr.append(comments.next_element.next_element.text.encode('utf-8'))
 
-        
-# Making readme
+# ---------------- EXTRA SCRAPES ------------------
+# --- Remove comments to use the list variables ---
+# -------------------------------------------------
+"""
+# Finding requirements based on project type
+req_str = "Requirements"
+req_arr = []
+if find_project_type == "holbertonschool-higher_level_programming":
+    req_str = "Requirements for Python scripts"
+
+req_tag = soup.find("h2", string=re.compile(req_str))
+req = req_tag.next_element.next_element.next_element
+# Store requirements info into arr
+for li in req:
+    try:
+        req_arr.append(li.text)
+    except AttributeError:
+        pass
+"""
+# ------------------------------------------
+# ---------- README TEMPLATE BELOW ---------        
+# --- Modify writes to your own template ---
+# ------------------------------------------
+
 with open(("%s/personal_auth_data.json" % current_path), "r") as my_keys:
 	github_keys = json.load(my_keys)
 rtemp = open("README.md", "w+")
