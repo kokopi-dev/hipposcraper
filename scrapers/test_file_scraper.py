@@ -2,9 +2,9 @@
 def scrape_tests(find_pre):
     """Create test files for Holberton School projects."""
     for pre in find_pre:
-        find_main = pre.text.find("main.c")
+        find_main = pre.text.find("main.")
         find_test = pre.text.find("cat")
-        find_c = pre.text.find(".c")
+        find_c = pre.text.find("main.c")
         find_py = pre.text.find(".py")
 
         # find_main checks if there are main files on project page
