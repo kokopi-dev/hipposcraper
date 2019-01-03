@@ -45,30 +45,32 @@ br = mechanize.Browser()
 br.set_cookiejar(cj)
 br.open(login)
 
-sys.stdout.write("Logging in... ")
+sys.stdout.write("Logging in and opening project... ")
 try:
     br.select_form(nr=0)
     br.form['user[login]'] = intra_keys["intra_user_key"]
     br.form['user[password]'] = intra_keys["intra_pass_key"]
     br.submit()
     my_keys.close()
+
+    # Parsing page into html soup
+    page = br.open(link)
+    soup = BeautifulSoup(page, 'html.parser')
+
+    # --- Checking if it is a C or Python project ---
+    find_project_type = soup.find(string=re.compile("GitHub repository: "))
+    find_project_type = find_project_type.next_sibling.text
+
+    # Finding directory
+    find_dir = soup.find(string=re.compile("Directory: "))
+    dir_name = find_dir.next_element.text
+
     print("done.")
+
 except:
     print("Error: Could not log in -",
           "did you set your login keys in auth_data.json?")
     sys.exit()
-
-# Parsing page into html soup
-page = br.open(link)
-soup = BeautifulSoup(page, 'html.parser')
-
-# --- Checking if it is a C or Python project ---
-find_project_type = soup.find(string=re.compile("GitHub repository: "))
-find_project_type = find_project_type.next_sibling.text
-
-# Finding directory
-find_dir = soup.find(string=re.compile("Directory: "))
-dir_name = find_dir.next_element.text
 
 # ------------------------------
 # --- Python Project Scraper ---
@@ -81,7 +83,8 @@ if find_project_type == "holbertonschool-higher_level_programming":
         os.chdir(dir_name)
         print("done.")
     except:
-        print("Error: Could not create directory.")
+        print("Error: Could not create directory - "
+              "does the directory already exist?")
         sys.exit()
 
     # Creating file(s) from scrapers.py_scraper
