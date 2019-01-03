@@ -87,7 +87,8 @@ if find_project_type == "holbertonschool-higher_level_programming":
     # Creating file(s) from scrapers.py_scraper
     sys.stdout.write("Creating task files... ")
     find_file_name = soup.find_all(string=re.compile("File: "))
-    scrape_py(find_file_name)
+    py_proto_tag = soup.find_all(string=re.compile("Prototype: "))
+    scrape_py(find_file_name, py_proto_tag)
     print("done.")
 
     # Finding and making py main files
