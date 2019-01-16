@@ -1,6 +1,12 @@
 #!/usr/bin/python2
-import os, sys, re, string, json
-import urllib2, cookielib, mechanize
+import os
+import sys
+import re
+import string
+import json
+import urllib2
+import cookielib
+import mechanize
 from bs4 import BeautifulSoup, Comment
 
 # Program variables
@@ -72,7 +78,7 @@ else:
     exit(1)
 
 # ---------------------------------
-# ----------- SCRAPERS ------------
+# ----------- Scrapers ------------
 # ---------------------------------
 
 # Finding file names
@@ -104,7 +110,7 @@ for comments in task_info:
     if comments == " Task Body ":
         task_info_arr.append(comments.next_element.next_element.text.encode('utf-8'))
 
-# ---------------- EXTRA SCRAPES ------------------
+# ---------------- Extra Scrapes ------------------
 # --- Remove comments to use the list variables ---
 # -------------------------------------------------
 """
@@ -128,7 +134,8 @@ for li in req:
 # --- Modify writes to your own template ---
 # ------------------------------------------
 
-with open(("%s/personal_auth_data.json" % current_path), "r") as my_keys:
+sys.stdout.write("Creating README.md... ")
+with open(("%s/auth_data.json" % current_path), "r") as my_keys:
 	github_keys = json.load(my_keys)
 rtemp = open("README.md", "w+")
 
@@ -136,9 +143,11 @@ rtemp.write("# %s\n" % prj_title.text)
 rtemp.write("\n")
 rtemp.write("## Description\n")
 rtemp.write("What you should learn from this project:\n")
+# TODO Put "* " in front of each, maybe store into arr and loop through
 rtemp.write("%s\n" % prj_info_t)
 rtemp.write("---\n")
 
+sys.stdout.write("Writing task title, info, and file name... ")
 try:
     count = 0
     while count < len(my_tasks_arr):
@@ -149,6 +158,7 @@ try:
         count += 1
 except IndexError:
     pass
+sys.stdout.write("Done...")
 
 rtemp.write("---\n")
 rtemp.write("\n")
@@ -156,3 +166,5 @@ rtemp.write("## Author\n")
 rtemp.write("* **%s** - " % github_keys["author_name"])
 rtemp.write("[%s]" % github_keys["github_username"])
 rtemp.write("(%s)" % github_keys["github_profile_link"])
+
+sys.stdout.write("All set!")
