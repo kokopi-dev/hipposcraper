@@ -1,5 +1,7 @@
 #!/usr/bin/python2
-
+"""
+"""
+import sys
 
 def scrape_py(find_file_name, py_proto_tag):
     """Scrape Python project files."""
