@@ -66,7 +66,6 @@ try:
     dir_name = find_dir.next_element.text
 
     print("done.")
-
 except:
     print("Error: Could not log in -",
           "did you set your login keys in auth_data.json?")
@@ -127,8 +126,8 @@ elif find_project_type == "holbertonschool-low_level_programming":
     # Setting _putchar variables and scraping it
     sys.stdout.write("Checking for _putchar... ")
     find_putchar = soup.find(string=re.compile("You are allowed to use"))
-    find_putchar_name = ""
-    scrape_putchar(find_putchar, find_putchar_name)
+    if len(find_putchar) == 23:
+        scrape_putchar(find_putchar)
 
     # Setting header variable
     thereIsHeader = 0
@@ -143,9 +142,8 @@ elif find_project_type == "holbertonschool-low_level_programming":
         # Variables for function name array
         proto_store = []
         get_header_name = find_header.previous_element.previous_element
-        i = 0
 
-        # Making function name array
+        # Making prototype names array
         find_proto = soup.find_all(string=re.compile("Prototype: "))
         for li in find_proto:
             proto_store.append(li.next_sibling.text.replace(";", ""))
@@ -153,91 +151,16 @@ elif find_project_type == "holbertonschool-low_level_programming":
         # Making C files with function name array
         sys.stdout.write("Creating task files... ")
         find_file_name = soup.find_all(string=re.compile("File: "))
-        for li in find_file_name:
-            # Text format
-            file_text = li.next_sibling.text
-            # Breaks incase more function names over file names
-            if (i == len(proto_store)):
-                break
 
-            try:
-                # Pulling out name of function for documentation
-                func_name = proto_store[i]
-                func_name = func_name.split("(", 1)[0]
-                tmp_split = func_name.split(" ")
-                func_name = tmp_split[len(tmp_split) - 1]
-                tmp_split = func_name.split("*")
-                func_name = tmp_split[len(tmp_split) - 1]
-
-                # Removing string after first comma (multiple file names)
-                find_comma = file_text.find(",")
-                if find_comma != -1:
-                    store_file_name = open(file_text[:find_comma], "w+")
-                else:
-                    store_file_name = open(file_text, "w+")
-                store_file_name.write('#include "%s"\n\n' % get_header_name)
-                store_file_name.write("/**\n")
-                store_file_name.write(" * %s -\n" % func_name)
-                store_file_name.write(" *\n")
-                store_file_name.write(" * Return: \n")
-                store_file_name.write(" */\n")
-                store_file_name.write("%s\n" % proto_store[i])
-                store_file_name.write("{\n")
-                store_file_name.write("\n")
-                store_file_name.write("}")
-                store_file_name.close()
-                i += 1
-            except:
-                sys.stdout.write("Error: Could not create ")
-                sys.stdout.write("task file %s\n" % file_text)
-                sys.stdout.write("                   ... ")
-                continue
-
+        # Creating C files
+        scrape_c(find_file_name, get_header_name, proto_store)
         print("done.")
-
-        # Variables for header prototypes array
-        proto_h_store = []
-        n = 0
 
         # Find header prototype
         find_proto_h = soup.find_all(string=re.compile("Prototype: "))
-        for li in find_proto_h:
-                proto_h_store.append(li.next_sibling.text)
 
-        # Making header include guard string
-        include_guard = get_header_name
-        include_guard = include_guard.replace('.', '_', 1)
-        include_guard = include_guard.upper()
-
-        # Making header file
-        sys.stdout.write("Creating header file... ")
-        try:
-            make_header = open(get_header_name, "w+")
-            make_header.write('#ifndef %s\n' % include_guard)
-            make_header.write('#define %s\n' % include_guard)
-            make_header.write("\n")
-            make_header.write("#include <stdio.h>\n")
-            make_header.write("#include <stdlib.h>\n")
-            make_header.write("\n")
-
-            if find_putchar_name == "_putchar" and find_putchar is not None:
-                make_header.write("int _putchar(char c);\n")
-
-            for li in find_proto_h:
-                if n == len(proto_h_store):
-                    break
-                make_header.write(proto_h_store[n])
-                make_header.write("\n")
-                n += 1
-
-            make_header.write("\n")
-            make_header.write('#endif /* %s */' % include_guard)
-            make_header.close()
-            print("done.")
-
-        except:
-            print("Error: Could not create header file.")
-
+        # Creating header file
+        scrape_header(find_proto_h, get_header_name, find_putchar)
     else:
         # Making C files with function name array
         sys.stdout.write("Creating task files... ")
