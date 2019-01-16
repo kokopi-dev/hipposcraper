@@ -12,8 +12,7 @@ def scrape_putchar(find_putchar):
         - Takes the next elem of str find_putchar
     """
     # Find if page has _putchar
-    if find_putchar is not None:
-        find_putchar_name = find_putchar.next_sibling.text
+    find_putchar_name = find_putchar.next_sibling.text
     # Making _putchar
     if find_putchar_name == "_putchar" and find_putchar_name is not None:
         h_putchar = open("_putchar.c", "w+")
@@ -47,17 +46,19 @@ def scrape_c(find_file_name, get_header_name, proto_store):
         # Text format for file name
         file_text = li.next_sibling.text
         # Breaks icase more function names over file names
-        if (i == len(proto_store)):
-            break
+        if proto_store != 0:
+            if (i == len(proto_store)):
+                break
 
         try:
             # Pulling out name of function for documentation
-            func_name = proto_store[i]
-            func_name = func_name.split("(", 1)[0]
-            tmp_split = func_name.split(" ")
-            func_name = tmp_split[len(tmp_split) - 1]
-            tmp_split = func_name.split("*")
-            func_name = tmp_split[len(tmp_split) - 1]
+            if proto_store != 0:
+                func_name = proto_store[i]
+                func_name = func_name.split("(", 1)[0]
+                tmp_split = func_name.split(" ")
+                func_name = tmp_split[len(tmp_split) - 1]
+                tmp_split = func_name.split("*")
+                func_name = tmp_split[len(tmp_split) - 1]
 
             # Removing string after first comma (multiple file names)
             find_comma = file_text.find(",")
@@ -65,17 +66,18 @@ def scrape_c(find_file_name, get_header_name, proto_store):
                 store_file_name = open(file_text[:find_comma], "w+")
             else:
                 store_file_name = open(file_text, "w+")
-            store_file_name.write('#include "%s"\n\n' % get_header_name)
-            store_file_name.write("/**\n")
-            store_file_name.write(" * %s -\n" % func_name)
-            store_file_name.write(" *\n")
-            store_file_name.write(" * Return: \n")
-            store_file_name.write(" */\n")
-            store_file_name.write("%s\n" % proto_store[i])
-            store_file_name.write("{\n")
-            store_file_name.write("\n")
-            store_file_name.write("}")
-            store_file_name.close()
+            if proto_store != 0:
+                store_file_name.write('#include "%s"\n\n' % get_header_name)
+                store_file_name.write("/**\n")
+                store_file_name.write(" * %s -\n" % func_name)
+                store_file_name.write(" *\n")
+                store_file_name.write(" * Return: \n")
+                store_file_name.write(" */\n")
+                store_file_name.write("%s\n" % proto_store[i])
+                store_file_name.write("{\n")
+                store_file_name.write("\n")
+                store_file_name.write("}")
+                store_file_name.close()
             i += 1
         except:
             sys.stdout.write("Error: Could not create ")
@@ -110,8 +112,11 @@ def scrape_header(find_proto_h, get_header_name, find_putchar):
         make_header.write("#include <stdlib.h>\n")
         make_header.write("\n")
 
-        if len(find_putchar) == 23:
-            make_header.write("int _putchar(char c);\n")
+        try:
+            if len(find_putchar) == 23:
+                make_header.write("int _putchar(char c);\n")
+        except TypeError:
+            pass
 
         for li in find_proto_h:
             if n == len(proto_h_store):

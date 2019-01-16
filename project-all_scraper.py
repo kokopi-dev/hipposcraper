@@ -126,8 +126,11 @@ elif find_project_type == "holbertonschool-low_level_programming":
     # Setting _putchar variables and scraping it
     sys.stdout.write("Checking for _putchar... ")
     find_putchar = soup.find(string=re.compile("You are allowed to use"))
-    if len(find_putchar) == 23:
-        scrape_putchar(find_putchar)
+    try:
+        if len(find_putchar) == 23:
+            scrape_putchar(find_putchar)
+    except TypeError:
+        pass
 
     # Setting header variable
     thereIsHeader = 0
@@ -165,7 +168,9 @@ elif find_project_type == "holbertonschool-low_level_programming":
         # Making C files with function name array
         sys.stdout.write("Creating task files... ")
         find_file_name = soup.find_all(string=re.compile("File: "))
-        scrape_c(find_file_name)
+        proto_store = 0
+        get_header_name = 0
+        scrape_c(find_file_name, get_header_name, proto_store)
         print("done.")
 
     # Finding and making c main files
