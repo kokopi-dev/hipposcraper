@@ -134,7 +134,7 @@ for li in req:
 # --- Modify writes to your own template ---
 # ------------------------------------------
 
-sys.stdout.write("Creating README.md... ")
+print("Creating README.md... ")
 with open(("%s/auth_data.json" % current_path), "r") as my_keys:
 	github_keys = json.load(my_keys)
 rtemp = open("README.md", "w+")
@@ -156,9 +156,10 @@ try:
         rtemp.write("* %s\n" % task_info_arr[count])
         rtemp.write("\n")
         count += 1
+    print("done...")
 except IndexError:
+    print("<Error: could not write tasks.>...")
     pass
-sys.stdout.write("Done...")
 
 rtemp.write("---\n")
 rtemp.write("\n")
@@ -167,4 +168,4 @@ rtemp.write("* **%s** - " % github_keys["author_name"])
 rtemp.write("[%s]" % github_keys["github_username"])
 rtemp.write("(%s)" % github_keys["github_profile_link"])
 
-sys.stdout.write("All set!")
+print("All set!")
