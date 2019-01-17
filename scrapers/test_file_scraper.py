@@ -1,5 +1,5 @@
 #!/usr/bin/python2
-
+import sys
 
 def scrape_tests(find_pre):
     """Create test files for Holberton School projects."""
