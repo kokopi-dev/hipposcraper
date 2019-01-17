@@ -1,7 +1,10 @@
 #!/usr/bin/python2
-"""
+"""Python project scraper
 """
 import sys
+import re
+import os
+
 
 def scrape_py(find_file_name, py_proto_tag):
     """Scrape Python project files."""
@@ -20,14 +23,20 @@ def scrape_py(find_file_name, py_proto_tag):
     for li in find_file_name:
         text_file = li.next_sibling.text
         try:
-            find_comma = text_file.find(",")
+            find_comma = re.search('(.+?),', text_file)
             find_pyfile = text_file.find(".py")
+            # Creating sub directories if exists
+            oneDirectoryOnly = 0
+            find_folder = re.search(', (.+?)/', text_file)
+            if find_folder is not None and oneDirectoryOnly is 0:
+                folder_name = str(find_folder.group(1))
+                os.mkdir(folder_name)
+                oneDirectoryOnly += 1
             # Handling multiple files
-            if find_comma != -1:
-                make_comma1 = open(text_file[:find_comma], "w+")
-                make_comma2 = open(text_file[find_comma:].strip(", "), "w+")
-                make_comma1.close()
-                make_comma2.close()
+            if "," in text_file:
+                create_name = str(find_comma.group(1))
+                make_comma = open(create_name, "w+")
+                make_comma.close()
             else:
                 make_file = open(text_file, "w+")
                 make_file.write("#!/usr/bin/python3\n")
