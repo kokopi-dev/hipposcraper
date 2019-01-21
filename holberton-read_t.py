@@ -81,6 +81,9 @@ else:
 # ----------- Scrapers ------------
 # ---------------------------------
 
+# Storing project info into an array
+prj_info_arr = prj_info_t.splitlines()
+
 # Finding file names
 file_name = soup.find_all(string=re.compile("File: "))
 file_name_arr = []
@@ -129,10 +132,10 @@ for li in req:
     except AttributeError:
         pass
 """
-# ------------------------------------------
-# ---------- README TEMPLATE BELOW ---------        
-# --- Modify writes to your own template ---
-# ------------------------------------------
+# -----------------------------------------
+# ---------- README TEMPLATE BELOW --------
+# --- Modify to write your own template ---
+# -----------------------------------------
 
 print("Creating README.md... ")
 with open(("%s/auth_data.json" % current_path), "r") as my_keys:
@@ -143,8 +146,14 @@ rtemp.write("# %s\n" % prj_title.text)
 rtemp.write("\n")
 rtemp.write("## Description\n")
 rtemp.write("What you should learn from this project:\n")
-# TODO Put "* " in front of each, maybe store into arr and loop through
-rtemp.write("%s\n" % prj_info_t)
+
+for item in prj_info_arr:
+    if len(item) == 0:
+        rtemp.write("{}\n".format(item))
+        continue
+    rtemp.write("* {}\n".format(item))
+
+rtemp.write("\n")
 rtemp.write("---\n")
 
 sys.stdout.write("Writing task title, info, and file name... ")
