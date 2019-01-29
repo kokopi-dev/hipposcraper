@@ -31,7 +31,7 @@ while not (valid_link in link):
     link = raw_input("Enter link to project: ")
 
 # Intranet login credentials
-with open(("%s/auth_data.json" % current_path), "r") as my_keys:
+with open(("%s/personal_auth_data.json" % current_path), "r") as my_keys:
     intra_keys = json.load(my_keys)
 
 # Login Variable
@@ -62,16 +62,19 @@ prj_title = soup.find("h1")
 find_project_type = soup.find(string=re.compile("GitHub repository: ")).next_sibling.text
 
 # Python "what you should learn"
-if find_project_type == "holbertonschool-higher_level_programming":
-    # Finding what you should learn
+if "higher_level" in find_project_type:
     prj_info = soup.find("strong", string=re.compile("without the help of Google"))
     prj_info_t = prj_info.next_element.next_element.next_element.next_element.text.encode('utf-8')
  
 # C "what you should learn"
-elif find_project_type == "holbertonschool-low_level_programming":
-    # Finding what you should learn
+elif "low_level" in find_project_type:
     prj_info = soup.find("p", string=re.compile("At the end of this project you are expected"))
     prj_info_t = prj_info.next_element.next_element.next_element.text.encode('utf-8')
+
+# Bash "what you should learn"
+elif "system" in find_project_type:
+    prj_info = soup.find("h3", string=re.compile("General"))
+    prj_info_t = prj_info.next_element.next_element.next_element.text 
 
 else:
     print("Fatal Error: Could not find project's type\n")
@@ -138,7 +141,7 @@ for li in req:
 # -----------------------------------------
 
 print("Creating README.md... ")
-with open(("%s/auth_data.json" % current_path), "r") as my_keys:
+with open(("%s/personal_auth_data.json" % current_path), "r") as my_keys:
 	github_keys = json.load(my_keys)
 rtemp = open("README.md", "w+")
 
