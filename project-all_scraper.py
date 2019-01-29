@@ -71,10 +71,8 @@ except:
           "did you set your login keys in auth_data.json?")
     sys.exit()
 
-# ------------------------------
 # --- Python Project Scraper ---
-# ------------------------------
-if find_project_type == "holbertonschool-higher_level_programming":
+if "higher_level" in find_project_type:
     # Making and changing to proper directory
     sys.stdout.write("Creating directory... ")
     try:
@@ -90,12 +88,14 @@ if find_project_type == "holbertonschool-higher_level_programming":
     sys.stdout.write("Creating task files... ")
     find_file_name = soup.find_all(string=re.compile("File: "))
     py_proto_tag = soup.find_all(string=re.compile("Prototype: "))
+
     scrape_py(find_file_name, py_proto_tag)
     print("done.")
 
     # Finding and making py main files
     sys.stdout.write("Creating test files... ")
     find_pre = soup.select("pre")
+
     scrape_tests(find_pre)
     print("done.")
 
@@ -109,10 +109,8 @@ if find_project_type == "holbertonschool-higher_level_programming":
 
     print("All set!")
 
-# -------------------------
 # --- C Project Scraper ---
-# -------------------------
-elif find_project_type == "holbertonschool-low_level_programming":
+elif "low_level" in find_project_type:
     # Making and changing to proper directory
     sys.stdout.write("Creating directory... ")
     try:
@@ -189,6 +187,32 @@ elif find_project_type == "holbertonschool-low_level_programming":
 
     print("All set!")
 
+# -- Bash Project Scraper--
+elif "system" in find_project_type:
+    # Making and changing to proper directory
+    sys.stdout.write("Creating directory... ")
+    try:
+        os.mkdir(dir_name)
+        os.chdir(dir_name)
+        print("done.")
+    except:
+        print("Error: Could not create directory.")
+        sys.exit()
+
+    # Creating file(s) from scrapers.py_scraper
+    sys.stdout.write("Creating task files... ")
+    find_file_name = soup.find_all(string=re.compile("File: "))
+    scrape_bash(find_file_name)
+    
+    # Giving permissions to all files
+    sys.stdout.write("Setting permissions... ")
+    try:
+        os.system("chmod u+x *")
+        print("done.")
+    except:
+        print("Error: Could not set permissions.")
+
+    print("All set!")
 else:
     print("Fatal Error: Could not find project's type\n")
     exit(1)
