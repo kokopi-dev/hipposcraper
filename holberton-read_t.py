@@ -31,7 +31,7 @@ while not (valid_link in link):
     link = raw_input("Enter link to project: ")
 
 # Intranet login credentials
-with open(("%s/personal_auth_data.json" % current_path), "r") as my_keys:
+with open(("%s/auth_data.json" % current_path), "r") as my_keys:
     intra_keys = json.load(my_keys)
 
 # Login Variable
@@ -141,9 +141,9 @@ for li in req:
 # -----------------------------------------
 
 print("Creating README.md... ")
-with open(("%s/personal_auth_data.json" % current_path), "r") as my_keys:
+with open(("%s/auth_data.json" % current_path), "r") as my_keys:
 	github_keys = json.load(my_keys)
-rtemp = open("README.md", "w+")
+rtemp = open("temp_README", "w+")
 
 rtemp.write("# %s\n" % prj_title.text)
 rtemp.write("\n")
