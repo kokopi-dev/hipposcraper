@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python2 
 """Defines the file creator for system engineering projects."""
 import sys
 
