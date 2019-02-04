@@ -1,4 +1,13 @@
-#!/usr/bin/python2
+#!/usr/bin/env python2
+"""Creates directory and files for Holberton School projects.
+
+Usage: `./project-all_scraper.py project_link`
+
+Scrapes information to create the directory, task files,
+test files, and header for a given project.
+
+Displays error messages for any failed scrapes.
+"""
 import os
 import sys
 import re
@@ -21,16 +30,18 @@ count = len(arg)
 
 # Argument Checker
 if count > 1:
-    print("  <Error: Too many arguments (must be one)>")
+    print("[ERROR] Too many arguments (must be one)")
     sys.exit()
 elif count == 0:
-    print("  <Error: Too few arguments (must be one)>")
+    print("[ERROR] Too few arguments (must be one)")
     sys.exit()
 
 link = sys.argv[1]
 while not (valid_link in link):
-    print("  <Error: Invalid link (must be to project on intranet.hbtn.io)>")
+    print("[ERROR] Invalid link (must be to project on intranet.hbtn.io)")
     link = raw_input("Enter link to project: ")
+
+print("Creating project:")
 
 # Intranet login credentials
 with open(("%s/auth_data.json" % current_path), "r") as my_keys:
@@ -45,7 +56,7 @@ br = mechanize.Browser()
 br.set_cookiejar(cj)
 br.open(login)
 
-sys.stdout.write("Logging in and opening project... ")
+sys.stdout.write("  -> Logging in... ")
 try:
     br.select_form(nr=0)
     br.form['user[login]'] = intra_keys["intra_user_key"]
@@ -65,64 +76,62 @@ try:
     find_dir = soup.find(string=re.compile("Directory: "))
     dir_name = find_dir.next_element.text
 
-    print("done.")
-except:
-    print("Error: Could not log in -",
-          "did you set your login keys in auth_data.json?")
+    print("done")
+except AttributeError:
+    print("[ERROR] Login failed - are your auth_data credentials correct?")
     sys.exit()
 
 # --- Python Project Scraper ---
 if "higher_level" in find_project_type:
     # Making and changing to proper directory
-    sys.stdout.write("Creating directory... ")
+    sys.stdout.write("  -> Creating directory... ")
     try:
         os.mkdir(dir_name)
         os.chdir(dir_name)
-        print("done.")
-    except:
-        print("Error: Could not create directory - "
-              "does the directory already exist?")
+        print("done")
+    except OSError:
+        print("[ERROR] Failed to create directory - does it already exist?")
         sys.exit()
 
     # Creating file(s) from scrapers.py_scraper
-    sys.stdout.write("Creating task files... ")
+    sys.stdout.write("  -> Creating task files... ")
     find_file_name = soup.find_all(string=re.compile("File: "))
     py_proto_tag = soup.find_all(string=re.compile("Prototype: "))
 
     scrape_py(find_file_name, py_proto_tag)
-    print("done.")
+    print("done")
 
     # Finding and making py main files
-    sys.stdout.write("Creating test files... ")
+    sys.stdout.write("  -> Creating test files... ")
     find_pre = soup.select("pre")
 
     scrape_tests(find_pre)
-    print("done.")
+    print("done")
 
     # Giving permissions to .py files
-    sys.stdout.write("Setting permissions... ")
+    sys.stdout.write("  -> Setting permissions... ")
     try:
         os.system("chmod u+x *.py")
-        print("done.")
-    except:
-        print("Error: Could not set permissions.")
+        print("done")
+    except OSError:
+        print("[ERROR] Failed to set permissions.")
 
-    print("All set!")
+    print("Project all set!")
 
 # --- C Project Scraper ---
 elif "low_level" in find_project_type:
     # Making and changing to proper directory
-    sys.stdout.write("Creating directory... ")
+    sys.stdout.write("  -> Creating directory... ")
     try:
         os.mkdir(dir_name)
         os.chdir(dir_name)
-        print("done.")
-    except:
-        print("Error: Could not create directory.")
+        print("done")
+    except OSError:
+        print("[Error] Failed to create directory - does it already exist?")
         sys.exit()
 
     # Setting _putchar variables and scraping it
-    sys.stdout.write("Checking for _putchar... ")
+    sys.stdout.write("  -> Checking for _putchar... ")
     find_putchar = soup.find(string=re.compile("You are allowed to use"))
     try:
         if len(find_putchar) == 23:
@@ -150,12 +159,12 @@ elif "low_level" in find_project_type:
             proto_store.append(li.next_sibling.text.replace(";", ""))
 
         # Making C files with function name array
-        sys.stdout.write("Creating task files... ")
+        sys.stdout.write("  -> Creating task files... ")
         find_file_name = soup.find_all(string=re.compile("File: "))
 
         # Creating C files
         scrape_c(find_file_name, get_header_name, proto_store)
-        print("done.")
+        print("done")
 
         # Find header prototype
         find_proto_h = soup.find_all(string=re.compile("Prototype: "))
@@ -164,55 +173,56 @@ elif "low_level" in find_project_type:
         scrape_header(find_proto_h, get_header_name, find_putchar)
     else:
         # Making C files with function name array
-        sys.stdout.write("Creating task files... ")
+        sys.stdout.write("  -> Creating task files... ")
         find_file_name = soup.find_all(string=re.compile("File: "))
         proto_store = 0
         get_header_name = 0
         scrape_c(find_file_name, get_header_name, proto_store)
-        print("done.")
+        print("done")
 
     # Finding and making c main files
-    sys.stdout.write("Creating test files... ")
+    sys.stdout.write("  -> Creating test files... ")
     find_pre = soup.select("pre")
     scrape_tests(find_pre)
-    print("done.")
+    print("done")
 
     # Giving permissions to .c files
-    sys.stdout.write("Setting permissions... ")
+    sys.stdout.write("  -> Setting permissions... ")
     try:
         os.system("chmod u+x *.c")
-        print("done.")
-    except:
-        print("Error: Could not set permissions.")
+        print("done")
+    except OSError:
+        print("[ERROR] Failed to set permissions")
 
-    print("All set!")
+    print("Project all set!")
 
 # -- Bash Project Scraper--
 elif "system" in find_project_type:
     # Making and changing to proper directory
-    sys.stdout.write("Creating directory... ")
+    sys.stdout.write("  -> Creating directory... ")
     try:
         os.mkdir(dir_name)
         os.chdir(dir_name)
-        print("done.")
-    except:
-        print("Error: Could not create directory.")
+        print("done")
+    except OSError:
+        print("[ERROR] Failed to create directory - does it already exist?")
         sys.exit()
 
     # Creating file(s) from scrapers.py_scraper
-    sys.stdout.write("Creating task files... ")
+    sys.stdout.write("  -> Creating task files... ")
     find_file_name = soup.find_all(string=re.compile("File: "))
     scrape_bash(find_file_name)
-    
+    print("done")
+
     # Giving permissions to all files
-    sys.stdout.write("Setting permissions... ")
+    sys.stdout.write("  -> Setting permissions... ")
     try:
         os.system("chmod u+x *")
-        print("done.")
-    except:
-        print("Error: Could not set permissions.")
+        print("done")
+    except OSError:
+        print("[ERROR] Failed to set permissions")
 
-    print("All set!")
+    print("Project all set!")
 else:
-    print("Fatal Error: Could not find project's type\n")
-    exit(1)
+    print("[ERROR]: Could not determine project type")
+    sys.exit(1)

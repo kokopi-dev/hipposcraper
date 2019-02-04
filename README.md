@@ -1,55 +1,141 @@
-# Python Scripts for Automating Holberton Projects
+# Hipposcraper - Python Scripts for Automating Holberton Projects
+
+<p align="center">
+  <img src="http://www.holbertonschool.com/holberton-logo.png">
+</p>
+
+The Hipposcraper automates file template creation for Holberton projects. The 
+program takes a link to a Holberton School project, scrapes the webpage, and 
+creates the corresponding directory and files. The Hipposcraper currently supports 
+the following: 
+
+| System Engineering    | Low-Level Programming | Higher-Level Programming      |
+| --------------------- | --------------------- | ----------------------------- |
+| Bash script templates | `.c` templates        | `.py` and `.c` templates      |
+|                       | Header file           | Header file                   |
+|                       | `_putchar` file       |                               |
+|                       | `main.c` test files   | `main.c`/`main.py` test files |
+| `README.md`           | `README.md`           | `README.md`                   |
 
 ---
 
-## Required things
+## Getting Started :wrench:
 
-* sudo apt-get install pip
-* pip install mechanize
-* pip install beautifulsoup4
+Follow these instructions to set up the Hipposcraper on your machine.
 
-**NOTE: This program only works with python2, make sure your alias is 'python2'.**
-* Mechanize is not supported by python3
+### Prerequisites
+
+The Hipposcraper relies on the Python packages Mechanize and BeautifulSoup4. 
+Installation of these packages requires pip. If you are on a Debian-based Linux 
+distribution:
+
+```
+sudo apt-get install pip
+```
+
+Once pip has been installed, install Mechanize and BeautifulSoup4 as follows:
+
+```
+pip install mechanize
+pip install beautifulsoup4
+```
+
+Note that you may need to run the `--user` option when installing these packages.
+
+### Setup :key:
+
+**Setting User Information**
+
+After cloning a local copy of the repository, enter your Holberton intranet 
+username and password as well as your GitHub name, username, and profile link 
+in the [auth_data.json](./auth_data.json) file.
+
+**Setting Aliases**
+
+The Hipposcraper defines two separate Python scripts - one 
+([project-all_scraper.py](./project-all_scraper.py)) that creates projects, 
+and a second ([holberton-read_t.py](./holberton-read_t.py)) that creates 
+`README.md` files. To run both simultaneously, you'll need to define an alias 
+to the script [hipposcrape.sh](./hipposcrape.sh).
+
+First, open the script and enter the full pathname to the Hipposcraper 
+directory where directed. Then, if you work in a Bash shell, define the 
+following in your `.bashrc`:
+
+```
+alias hipposcrape='./ENTER_FULL_PATHNAME_TO_SCRAPER_DIRECTORY_HERE/hipposcrape.sh'
+```
+
+Alternatievely, you can define separate aliases for each individual script. To 
+define a project scraper alias:
+
+```
+alias hippoproject='./ENTER_FULL_PATHNAME_TO_SCRAPER_DIRECTORY_HERE/project-all_scraper.py'
+```
+
+And to define a `README.md` scraper alias:
+
+```
+alias hipporead='./ENTER_FULL_PATHNAME_TO_SCRAPER_DIRECTORY_HERE/holberton-read_t.py'
+```
+
+*NOTE: This program only works with Python 2; ensure that your aliases 
+specify 'python2' (Mechanize is not supported by Python 3).*
 
 ---
 
-## Description
+## Usage :computer:
 
-Automating file template creation for Holberton projects, below is the chart of files that it will automate. The program will first ask you for your header file name, skip it by leaving it blank and pressing enter. Then it will ask if you want to include holberton's putchar file. Finally, it will then create a directory with the correct project name with all the project files in it.
+After you have setup the proper aliases, you can run the Hipposcraper with the 
+following command:
 
-| C Projects | Python Projects | Javascript |
-| ------------- | ------------- | ------------- |
-| C Templates | Py Templates | Coming Soon |
-| Header file | C files | Coming Soon |
-| Putchar file | Header files | Coming Soon |
-| Main.c files | README.md |
-| README.md |
+```
+~$ hipposcrape project_link
+```
 
-## Instructions
+Where `project_link` is the URL link to the Holberton School project to scrape.
 
-**Install required things above**
+Alternatively, to run only the project scraper:
 
-**Setting User Information:** Enter in your Holberton intranet username and password as well as your Github name, username, and profile link in the [auth_data.json](./auth_data.json) file.
+```
+~$ hippoproject project_link
+```
 
-**Setting Alias:** Type cd in terminal, then open up '.bashrc' with your text editor. then enter in the alias corresponding with the ones that you want to use (alias name totally up to you if you want to change them).
+Or only the `README.md` scraper:
 
-Example of alias below file names in this readme.
+```
+~$ hipporead project_link
+```
+
+## Repository Contents :file_folder:
+
+* [hipposcraper.sh](./hipposcraper.sh)
+  * A Bash script for running the entire Hipposcraper at once.
+
+* [project-all_scraper.py](./project-all_scraper.py)
+  * Python script that scrapes Holberton intranet webpage to create project 
+directories.
+
+* [holberton-read_t.py](./holberton-read_t.py)
+  * Python script that scrapes Holberton intranet webpage to create project 
+`README.md`.
+
+* [auth_data.json](./auth_data.json)
+  * Stores user Holberton intranet and GitHub profile information.
+
+* [scrapers](./scrapers)
+  * Folder of file-creation scrapers.
+    * [bash_scraper.py](./scrapers/bash_scraper.py): Python script for creating 
+Bash task files for system engineering projects.
+    * [c_scraper.py](./scrapers/c_scraper.py): Python functions for creating 
+`_putchar.c`, task files, and header file for low-level programming projects.
+    * [py_scraper.py](./scrapers/py_scraper.py): Python function for creating 
+Python task files for higher-level programming projects.
+    * [test_scraper.py](./scrapers/test_scraper.py): Python function for creating 
+test files for all project types.
 
 ---
 
-### [Holberton Proj. All Scrapers](./project-all_scraper.py)
-* alias hos='python2 /DIRECTORY/project-all_scraper.py'
-* takes 1 argument: the project url
-* it will scrape accordingly depending on which project type (c, python, js) it is
-
-### [Holberton README.md Template](./holberton-read_t.py)
-* alias hotr='python2 /DIRECTORY/holberton-read_t.py'
-* takes 1 argument: the project url
-
-### [Auth Data](./auth_data.json)
-* Store your user/pass in here
-
----
 ## Example of the C scraper
 
 ![demo0](https://i.imgur.com/nIKUgA3.png)
@@ -58,11 +144,14 @@ Example of alias below file names in this readme.
 
 ![demo1](https://i.imgur.com/t6vOCwq.jpg)
 
-## README Modifiying
-* Go into the [holberton-read_t.py](./holberton-read_t.py) file to modify the README template to your own if you want
-* The comment "README TEMPLATE BELOW" is where you can modify the .write functions
-* "SCRAPERS and "EXTRA SCRAPES" are where you can use the variables ending with "_arr" to modify your README
-* They are stored in lists, so you will need to loop through them to print them
+## README Modification :pencil2:
+To modify the scraping template for `README.md` creation, edit the 
+[holberton-read_t.py](./holberton-read_t.py) file.
+* In the block commented by `README TEMPLATE BELOW`, you can modify `.write` 
+functions to edit what is written into the file.
+* In the blocks commented by `SCRAPERS` and `EXTRA SCRAPES`, you can use the 
+variables ending with `_arr` to modify the `README.md` contents.
+  * Note that the information is stored in lists.
 
 ---
 

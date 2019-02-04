@@ -1,13 +1,19 @@
-#!/usr/bin/python2
-"""Python project scraper
-"""
+#!/usr/bin/env python2
+"""Defines Python file creation function."""
 import sys
 import re
 import os
 
 
 def scrape_py(find_file_name, py_proto_tag):
-    """Scrape Python project files."""
+    """Scrape Python project files.
+
+    Writes shebang and function prototypes to each file.
+
+    Args:
+        find_file_name (list): A list of project file names.
+        py_proto_tag (str): Scraped function prototypes.
+    """
     # Storing py prototypes into arr
     py_proto_arr = []
     for item in py_proto_tag:
@@ -39,7 +45,7 @@ def scrape_py(find_file_name, py_proto_tag):
                 make_comma.close()
             else:
                 make_file = open(text_file, "w+")
-                make_file.write("#!/usr/bin/python3\n")
+                make_file.write("#!/usr/bin/env python3\n")
                 # Creating prototypes in parallel with files
                 if find_pyfile != -1:
                     try:
@@ -50,8 +56,8 @@ def scrape_py(find_file_name, py_proto_tag):
                 else:
                     pass
                 make_file.close()
-        except:
-            sys.stdout.write("Error: Could not create ")
+        except AttributeError:
+            sys.stdout.write("[ERROR] Failed to create ")
             sys.stdout.write("task file %s\n" % text_file)
-            sys.stdout.write("                   ... ")
+            sys.stdout.write("                        ... ")
             continue
