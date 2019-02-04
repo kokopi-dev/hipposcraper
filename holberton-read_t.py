@@ -204,12 +204,16 @@ if prj_info_arr is not None:
     rtemp.write("## Description\n")
     rtemp.write("What you should learn from this project:\n")
 
-    for item in prj_info_arr:
-        if len(item) == 0:
-            rtemp.write("{}\n".format(item))
-            continue
-        rtemp.write("* {}\n".format(item))
-    print("done")
+    try:
+        for item in prj_info_arr:
+            if len(item) == 0:
+                rtemp.write("{}\n".format(item))
+                continue
+            rtemp.write("* {}\n".format(item))
+        print("done")
+    except (AttributeError, IndexError, UnicodeEncodeError):
+        print("[ERROR] Failed to write learning objectives.")
+        pass
 
 rtemp.write("\n")
 rtemp.write("---\n")
