@@ -1,5 +1,9 @@
 # Hipposcraper - Python Scripts for Automating Holberton Projects
 
+<p align="center">
+  <img src="http://www.holbertonschool.com/holberton-logo.png">
+</p>
+
 The Hipposcraper automates file template creation for Holberton projects. The 
 program takes a link to a Holberton School project, scrapes the webpage, and 
 creates the corresponding directory and files. The Hipposcraper currently supports 
@@ -15,7 +19,7 @@ the following:
 
 ---
 
-## Getting Started
+## Getting Started :wrench:
 
 Follow these instructions to set up the Hipposcraper on your machine.
 
@@ -38,14 +42,16 @@ pip install beautifulsoup4
 
 Note that you may need to run the `--user` option when installing these packages.
 
-### Setup
+### Setup :key:
 
 **Setting User Information**
+
 After cloning a local copy of the repository, enter your Holberton intranet 
 username and password as well as your GitHub name, username, and profile link 
 in the [auth_data.json](./auth_data.json) file.
 
 **Setting Aliases**
+
 The Hipposcraper defines two separate Python scripts - one 
 ([project-all_scraper.py](./project-all_scraper.py)) that creates projects, 
 and a second ([holberton-read_t.py](./holberton-read_t.py)) that creates 
@@ -73,18 +79,18 @@ And to define a `README.md` scraper alias:
 alias hipporead='./ENTER_FULL_PATHNAME_TO_SCRAPER_DIRECTORY_HERE/holberton-read_t.py'
 ```
 
-__NOTE: This program only works with Python 2; ensure that your aliases 
-specify 'python2' (Mechanize is not supported by Python 3).__
+*NOTE: This program only works with Python 2; ensure that your aliases 
+specify 'python2' (Mechanize is not supported by Python 3).*
 
 ---
 
-## Usage
+## Usage :computer:
 
 After you have setup the proper aliases, you can run the Hipposcraper with the 
 following command:
 
 ```
-hipposcrape project_link
+~$ hipposcrape project_link
 ```
 
 Where `project_link` is the URL link to the Holberton School project to scrape.
@@ -92,16 +98,16 @@ Where `project_link` is the URL link to the Holberton School project to scrape.
 Alternatively, to run only the project scraper:
 
 ```
-hippoproject project_link
+~$ hippoproject project_link
 ```
 
 Or only the `README.md` scraper:
 
 ```
-hipporead project_link
+~$ hipporead project_link
 ```
 
-## Repository Contents
+## Repository Contents :file_folder:
 
 * [hipposcraper.sh](./hipposcraper.sh)
   * A Bash script for running the entire Hipposcraper at once.
