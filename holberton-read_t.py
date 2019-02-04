@@ -1,4 +1,15 @@
-#!/usr/bin/python2
+#!/usr/bin/env python2
+"""Creates README.md files for Holberton School projects.
+
+Usage: `./holberton-read_t.py project_link`
+
+Scrapes project title as well as task filenames, descriptions, and
+learning objectives. Creates the README.md in the corresponding project
+directory if it already exists. Otherwise, creates the file in the
+current directory.
+
+Displays error messages for any failed scrapes.
+"""
 import os
 import sys
 import re
