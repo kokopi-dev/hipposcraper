@@ -144,7 +144,7 @@ test files for all project types.
 
 ![demo1](https://i.imgur.com/t6vOCwq.jpg)
 
-## README Modification
+## README Modification :pencil2:
 To modify the scraping template for `README.md` creation, edit the 
 [holberton-read_t.py](./holberton-read_t.py) file.
 * In the block commented by `README TEMPLATE BELOW`, you can modify `.write` 
