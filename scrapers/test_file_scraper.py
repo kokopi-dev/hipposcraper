@@ -29,7 +29,7 @@ def scrape_tests(find_pre):
                 text = text.split("\n")
                 test_file = open(name, "w+")
                 for i in range(len(text) - 1):
-                    test_file.write(text[i] + "\n")
+                    test_file.write(text[i].encode('utf-8') + "\n")
                 test_file.close()
             except (AttributeError, IndexError):
                 sys.stdout.write("[ERROR] Could not create ")
