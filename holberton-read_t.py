@@ -83,6 +83,7 @@ try:
     find_project_type = soup.find(string=re.compile("GitHub repository: "))
     find_project_type = find_project_type.next_sibling.text
 
+    """
     # Python "what you should learn"
     if "higher_level" in find_project_type:
         string = "without the help of Google"
@@ -101,7 +102,9 @@ try:
     elif "system" in find_project_type:
         prj_info = soup.find("h3", string=re.compile("General"))
         prj_info_t = prj_info.next_element.next_element.next_element.text
-
+    """
+    prj_info = soup.find("h2", string=re.compile("Learning Objectives"))
+    prj_info_t = prj_info.find_next("h3").next_element.next_element.next_element.text
     # Storing project info into an array
     prj_info_arr = prj_info_t.splitlines()
 
@@ -186,8 +189,6 @@ for li in req:
 # --- Modify to write your own template ---
 # -----------------------------------------
 
-with open(("%s/auth_data.json" % current_path), "r") as my_keys:
-    github_keys = json.load(my_keys)
 try:
     filename = dir_name + "/README.md"
     rtemp = open(filename, "w+")
@@ -241,9 +242,9 @@ sys.stdout.write("  -> Writing author information... ")
 rtemp.write("---\n")
 rtemp.write("\n")
 rtemp.write("## Author\n")
-rtemp.write("* **%s** - " % github_keys["author_name"])
-rtemp.write("[%s]" % github_keys["github_username"])
-rtemp.write("(%s)" % github_keys["github_profile_link"])
+rtemp.write("* **%s** - " % intra_keys["author_name"])
+rtemp.write("[%s]" % intra_keys["github_username"])
+rtemp.write("(%s)" % intra_keys["github_profile_link"])
 print("done")
 
 rtemp.close()

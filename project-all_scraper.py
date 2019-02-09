@@ -82,7 +82,7 @@ except AttributeError:
     sys.exit()
 
 # --- Python Project Scraper ---
-if "higher_level" in find_project_type:
+if "higher_l" in find_project_type:
     # Making and changing to proper directory
     sys.stdout.write("  -> Creating directory... ")
     try:
@@ -108,7 +108,6 @@ if "higher_level" in find_project_type:
     scrape_tests(find_pre)
     print("done")
 
-    # Giving permissions to .py files
     sys.stdout.write("  -> Setting permissions... ")
     try:
         os.system("chmod u+x *.py")
@@ -119,7 +118,7 @@ if "higher_level" in find_project_type:
     print("Project all set!")
 
 # --- C Project Scraper ---
-elif "low_level" in find_project_type:
+elif "low_l" in find_project_type:
     # Making and changing to proper directory
     sys.stdout.write("  -> Creating directory... ")
     try:
@@ -166,9 +165,7 @@ elif "low_level" in find_project_type:
         scrape_c(find_file_name, get_header_name, proto_store)
         print("done")
 
-        # Find header prototype
         find_proto_h = soup.find_all(string=re.compile("Prototype: "))
-
         # Creating header file
         scrape_header(find_proto_h, get_header_name, find_putchar)
     else:
@@ -186,7 +183,6 @@ elif "low_level" in find_project_type:
     scrape_tests(find_pre)
     print("done")
 
-    # Giving permissions to .c files
     sys.stdout.write("  -> Setting permissions... ")
     try:
         os.system("chmod u+x *.c")
@@ -214,7 +210,6 @@ elif "system" in find_project_type:
     scrape_bash(find_file_name)
     print("done")
 
-    # Giving permissions to all files
     sys.stdout.write("  -> Setting permissions... ")
     try:
         os.system("chmod u+x *")
