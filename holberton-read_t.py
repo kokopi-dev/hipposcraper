@@ -20,7 +20,6 @@ import cookielib
 import mechanize
 from bs4 import BeautifulSoup, Comment
 
-# Program variables
 current_path = os.path.dirname(os.path.abspath(__file__))
 valid_link = 'intranet.hbtn.io/projects'
 
@@ -46,10 +45,9 @@ while not (valid_link in link):
 with open(("%s/auth_data.json" % current_path), "r") as my_keys:
     intra_keys = json.load(my_keys)
 
-# Login Variable
-login = "https://intranet.hbtn.io/auth/sign_in"
 
 # Logging into website
+login = "https://intranet.hbtn.io/auth/sign_in"
 cj = cookielib.CookieJar()
 br = mechanize.Browser()
 br.set_cookiejar(cj)
@@ -62,7 +60,7 @@ br.submit()
 
 my_keys.close()
 
-# Parsing page into html soup
+# Parsing page into soup
 page = br.open(link)
 soup = BeautifulSoup(page, 'html.parser')
 
@@ -74,37 +72,26 @@ sys.stdout.write("  -> Scraping information... ")
 # Finding project title
 prj_title = soup.find("h1")
 
+# Var for checking if it is a big project type
+big_project_type = 0
+# Finding repo name
+find_repo_name = soup.find(string=re.compile("GitHub repository: "))
+repo_name = find_repo_name.next_element
+find_project_type = repo_name.text
 # Finding directory
-find_dir = soup.find(string=re.compile("Directory: "))
-dir_name = find_dir.next_element.text
-
-# Scraping learning objectives
 try:
-    find_project_type = soup.find(string=re.compile("GitHub repository: "))
-    find_project_type = find_project_type.next_sibling.text
+    find_directory_name = repo_name.find_next("li").next_element.next_element.text
+    if "-" not in find_directory_name:
+        raise AttributeError
+except AttributeError:
+    sys.stdout.write("\n     [ERROR] Failed to find directory, skipping directory creation... ")
+    big_project_type = 1
 
-    """
-    # Python "what you should learn"
-    if "higher_level" in find_project_type:
-        string = "without the help of Google"
-        prj_info = soup.find("strong", string=re.compile(string))
-        prj_info_t = prj_info.next_element.next_element
-        prj_info_t = prj_info_t.next_element.next_element.text.encode('utf-8')
-
-    # C "what you should learn"
-    elif "low_level" in find_project_type:
-        string = "At the end of this project you are expected"
-        prj_info = soup.find("p", string=re.compile(string))
-        prj_info_t = prj_info.next_element.next_element
-        prj_info_t = prj_info_t.next_element.text.encode('utf-8')
-
-    # Bash "what you should learn"
-    elif "system" in find_project_type:
-        prj_info = soup.find("h3", string=re.compile("General"))
-        prj_info_t = prj_info.next_element.next_element.next_element.text
-    """
+try:
+    # Scraping learning objectives
     prj_info = soup.find("h2", string=re.compile("Learning Objectives"))
     prj_info_t = prj_info.find_next("h3").next_element.next_element.next_element.text
+
     # Storing project info into an array
     prj_info_arr = prj_info_t.splitlines()
 
@@ -190,7 +177,9 @@ for li in req:
 # -----------------------------------------
 
 try:
-    filename = dir_name + "/README.md"
+    if big_project_type == 1:
+        raise IOError
+    filename = find_directory_name + "/README.md"
     rtemp = open(filename, "w+")
 except IOError:
     rtemp = open("README.md", "w")
@@ -233,8 +222,8 @@ if (my_tasks_arr is not None and
             rtemp.write("\n")
             count += 1
         except IndexError:
-            print("Error: Could not write task %s" % my_tasks_arr[count])
-            print("                                ... ")
+            sys.stdout.write("\n     [ERROR] Could not write task {}... ".format(my_tasks_arr[count]))
+            count += 1
             continue
     print("done")
 
