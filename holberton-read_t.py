@@ -233,7 +233,7 @@ if (my_tasks_arr is not None and
             rtemp.write("\n")
             count += 1
         except IndexError:
-            print("Error: Could not write task %s" % file_name_arr[count])
+            print("Error: Could not write task %s" % my_tasks_arr[count])
             print("                                ... ")
             continue
     print("done")
