@@ -3,7 +3,7 @@
 import sys
 
 
-def scrape_bash(find_file_name):
+def scrape_bash(find_file_name, check_ruby):
     """Create Bash script files for system engineering projects.
 
     Files are created with shebangs.
@@ -14,7 +14,10 @@ def scrape_bash(find_file_name):
     for li in find_file_name:
         try:
             make_file = open(li.next_sibling.text, "w")
-            make_file.write("#!/usr/bin/env bash\n")
+            if check_ruby == 0:
+                make_file.write("#!/usr/bin/env ruby\n")
+            else:
+                make_file.write("#!/usr/bin/env bash\n")
             make_file.close()
         except (AttributeError, IndexError):
             sys.stdout.write("[ERROR] Failed to create ")

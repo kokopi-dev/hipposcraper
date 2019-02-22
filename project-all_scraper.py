@@ -22,7 +22,6 @@ from scrapers import *
 # Program variables
 current_path = os.path.dirname(os.path.abspath(__file__))
 valid_link = 'intranet.hbtn.io/projects'
-valid_header = '.h'
 
 # Command Line Arguments
 arg = sys.argv[1:]
@@ -194,6 +193,11 @@ elif "low_l" in find_project_type:
 
 # -- Bash Project Scraper--
 elif "system" in find_project_type:
+    check_ruby = ""
+    check_ruby = soup.find_all(string=re.compile("env ruby"))
+    if check_ruby != "":
+        check_ruby = 0
+
     # Making and changing to proper directory
     sys.stdout.write("  -> Creating directory... ")
     try:
@@ -207,7 +211,7 @@ elif "system" in find_project_type:
     # Creating file(s) from scrapers.py_scraper
     sys.stdout.write("  -> Creating task files... ")
     find_file_name = soup.find_all(string=re.compile("File: "))
-    scrape_bash(find_file_name)
+    scrape_bash(find_file_name, check_ruby)
     print("done")
 
     sys.stdout.write("  -> Setting permissions... ")
