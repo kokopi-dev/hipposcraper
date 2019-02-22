@@ -88,11 +88,9 @@ except AttributeError:
     big_project_type = 1
 
 try:
-    # Scraping learning objectives
+    # Scraping learning objectives and storing into list
     prj_info = soup.find("h2", string=re.compile("Learning Objectives"))
     prj_info_t = prj_info.find_next("h3").next_element.next_element.next_element.text
-
-    # Storing project info into an array
     prj_info_arr = prj_info_t.splitlines()
 
 except AttributeError:
@@ -102,10 +100,9 @@ except AttributeError:
     pass
 
 try:
-    # Scraping file names
+    # Scraping file names and storing into list
     file_name = soup.find_all(string=re.compile("File: "))
     file_name_arr = []
-    # Store file names into arr
     for idx in file_name:
         file_text = idx.next_sibling.text
         # Finding comma index for multiple files listed
@@ -121,10 +118,9 @@ except (IndexError, AttributeError):
     pass
 
 try:
-    # Finding task titles
+    # Finding task titles and storing into list
     my_tasks = soup.find_all("h4", class_="task")
     my_tasks_arr = []
-    # Store task titles into arr
     for idx in my_tasks:
         item = idx.next_element.strip("\n").strip()
         my_tasks_arr.append(item)
@@ -135,10 +131,9 @@ except (IndexError, AttributeError):
     pass
 
 try:
-    # Finding task descriptions
+    # Finding task descriptions and storing into list
     task_info = soup.find_all(string=lambda text: isinstance(text, Comment))
     task_info_arr = []
-    # Store task info into arr
     for comments in task_info:
         if comments == " Task Body ":
             info_text = comments.next_element.next_element.text
@@ -197,12 +192,12 @@ if prj_info_arr is not None:
     try:
         for item in prj_info_arr:
             if len(item) == 0:
-                rtemp.write("{}\n".format(item))
+                rtemp.write("{}\n".format(item.encode('utf-8')))
                 continue
-            rtemp.write("* {}\n".format(item))
+            rtemp.write("* {}\n".format(item.encode('utf-8')))
         print("done")
     except (AttributeError, IndexError, UnicodeEncodeError):
-        print("[ERROR] Failed to write learning objectives.")
+        print("\n     [ERROR] Failed to write learning objectives.")
         pass
 
 rtemp.write("\n")
@@ -216,13 +211,14 @@ if (my_tasks_arr is not None and
     while count < len(my_tasks_arr):
         try:
             rtemp.write("\n")
-            rtemp.write("### [%s](./%s)\n" % (my_tasks_arr[count],
-                                              file_name_arr[count]))
+            rtemp.write("### [%s](./%s)\n"
+                       .format(my_tasks_arr[count], file_name_arr[count]))
             rtemp.write("* %s\n" % task_info_arr[count])
             rtemp.write("\n")
             count += 1
         except IndexError:
-            sys.stdout.write("\n     [ERROR] Could not write task {}... ".format(my_tasks_arr[count]))
+            sys.stdout.write("\n     [ERROR] Could not write task {}... "
+                            .format(my_tasks_arr[count]))
             count += 1
             continue
     print("done")
