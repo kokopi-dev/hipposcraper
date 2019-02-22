@@ -138,11 +138,11 @@ test files for all project types.
 
 ## Example of the C scraper
 
-![demo0](https://i.imgur.com/nIKUgA3.png)
+![demo0](https://i.imgur.com/oB08uzF.png)
 
 ## Example of the README scraper
 
-![demo1](https://i.imgur.com/t6vOCwq.jpg)
+![demo1](https://i.imgur.com/cu7btDf.jpg)
 
 ## README Modification :pencil2:
 To modify the scraping template for `README.md` creation, edit the 
