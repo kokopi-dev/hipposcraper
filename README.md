@@ -142,7 +142,7 @@ test files for all project types.
 
 ## Example of the README scraper
 
-![demo1](https://i.imgur.com/cu7btDf.jpg)
+![demo1](https://i.imgur.com/80DBf4Z.jpg)
 
 ## README Modification :pencil2:
 To modify the scraping template for `README.md` creation, edit the 
