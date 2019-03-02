@@ -2,11 +2,12 @@
 """Module for BaseParse"""
 from scrapers import *
 
+
 class BaseParse(object):
     """BaseParse class
 
     Contains read json data, and parsed html data for the scrapers
-    to use.
+    to use. Also contains general methods to initialize the scrape.
 
     Args:
         link (str): link to the project page to scrape
@@ -21,7 +22,6 @@ class BaseParse(object):
     dir_name = ""
 
     def __init__(self, link=""):
-        """Instantiation of Base Parse"""
         self.htbn_link = link
 
     @property
@@ -30,6 +30,13 @@ class BaseParse(object):
 
     @htbn_link.setter
     def htbn_link(self, value):
+        """Setter for htbn link
+
+        Must contain holberton's url format for projects.
+
+        Args:
+            value (str): comes from argv[1] as the project link
+        """
         valid_link = "intranet.hbtn.io/projects"
         while not (valid_link in value):
             print("[ERROR] Invalid link (must be to project on intranet.hbtn.io)")

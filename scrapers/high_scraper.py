@@ -5,6 +5,15 @@ from scrapers import *
 
 class HighScraper:
     """HighScraper class
+
+    High-Level_Programming project scraper.
+
+    Args:
+        soup (obj): BeautifulSoup obj containing parsed link
+
+    Attributes:
+        prototypes_list (list): scraped prototypes from find_prototypes()
+        file_names (list): scraped file names from find_files()
     """
 
     prototypes_list = []
@@ -28,12 +37,14 @@ class HighScraper:
                 pass
 
     def find_files(self):
+        """Method to scrape for python file names"""
         self.file_names = self.soup.find_all(string=re.compile("File: "))
 
     def write_files(self):
         """Method to write/create python files
 
         Has a function that creates directories if found in `file_name`.
+        Last function creates required files in additional directory.
         """
 
         new_dir_files = []
