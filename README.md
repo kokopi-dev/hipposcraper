@@ -53,7 +53,7 @@ in the [auth_data.json](./auth_data.json) file.
 **Setting Aliases**
 
 The Hipposcraper defines two separate Python scripts - one 
-([project-all_scraper.py](./project-all_scraper.py)) that creates projects, 
+([hipposcraper.py](./hipposcraper.py)) that creates projects, 
 and a second ([holberton-read_t.py](./holberton-read_t.py)) that creates 
 `README.md` files. To run both simultaneously, you'll need to define an alias 
 to the script [hipposcrape.sh](./hipposcrape.sh).
@@ -112,7 +112,7 @@ Or only the `README.md` scraper:
 * [hipposcraper.sh](./hipposcraper.sh)
   * A Bash script for running the entire Hipposcraper at once.
 
-* [project-all_scraper.py](./project-all_scraper.py)
+* [hipposcraper.py](./hipposcraper.py)
   * Python script that scrapes Holberton intranet webpage to create project 
 directories.
 
@@ -125,13 +125,14 @@ directories.
 
 * [scrapers](./scrapers)
   * Folder of file-creation scrapers.
-    * [bash_scraper.py](./scrapers/bash_scraper.py): Python script for creating 
+    * [base_parse.py](./scrapers/base_parse.py): Python script for parsing project pages.
+    * [sys_scraper.py](./scrapers/sys_scraper.py): Python functions for creating 
 Bash task files for system engineering projects.
-    * [c_scraper.py](./scrapers/c_scraper.py): Python functions for creating 
+    * [low_scraper.py](./scrapers/low_scraper.py): Python functions for creating 
 `_putchar.c`, task files, and header file for low-level programming projects.
-    * [py_scraper.py](./scrapers/py_scraper.py): Python function for creating 
+    * [high_scraper.py](./scrapers/high_scraper.py): Python function for creating 
 Python task files for higher-level programming projects.
-    * [test_scraper.py](./scrapers/test_scraper.py): Python function for creating 
+    * [test_file_scraper.py](./scrapers/test_file_scraper.py): Python function for creating 
 test files for all project types.
 
 ---
