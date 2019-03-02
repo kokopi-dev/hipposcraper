@@ -41,9 +41,10 @@ def set_permissions():
         print("[ERROR] Failed to set permissions")
     
 def hipposcrape():
-    """hipposcrape
+    """Entry point for hipposcraper
 
-    Entry point for the scraper.
+    Scrapes project type (low level, high level, or system engineer),
+    then it checks project type to execute appropriate scrapes.
     """
 
     link = get_args()
