@@ -70,7 +70,7 @@ Alternatievely, you can define separate aliases for each individual script. To
 define a project scraper alias:
 
 ```
-alias hippoproject='./ENTER_FULL_PATHNAME_TO_SCRAPER_DIRECTORY_HERE/project-all_scraper.py'
+alias hippoproject='./ENTER_FULL_PATHNAME_TO_SCRAPER_DIRECTORY_HERE/hipposcraper.py'
 ```
 
 And to define a `README.md` scraper alias:
@@ -126,13 +126,13 @@ directories.
 * [scrapers](./scrapers)
   * Folder of file-creation scrapers.
     * [base_parse.py](./scrapers/base_parse.py): Python script for parsing project pages.
-    * [sys_scraper.py](./scrapers/sys_scraper.py): Python functions for creating 
+    * [sys_scraper.py](./scrapers/sys_scraper.py): Python methods for creating 
 Bash task files for system engineering projects.
-    * [low_scraper.py](./scrapers/low_scraper.py): Python functions for creating 
+    * [low_scraper.py](./scrapers/low_scraper.py): Python methods for creating 
 `_putchar.c`, task files, and header file for low-level programming projects.
-    * [high_scraper.py](./scrapers/high_scraper.py): Python function for creating 
+    * [high_scraper.py](./scrapers/high_scraper.py): Python methods for creating 
 Python task files for higher-level programming projects.
-    * [test_file_scraper.py](./scrapers/test_file_scraper.py): Python function for creating 
+    * [test_file_scraper.py](./scrapers/test_file_scraper.py): Python methods for creating 
 test files for all project types.
 
 ---
