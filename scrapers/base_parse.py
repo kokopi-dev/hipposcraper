@@ -48,10 +48,9 @@ class BaseParse(object):
 
         Sets json read to `json_data`
         """
-        super_path = os.path.abspath("..")
-        parent_path = os.path.basename(os.getcwd())
+        super_path = os.path.dirname(os.path.abspath(__file__))
         try:
-            with open("{}/{}/auth_data.json".format(super_path, parent_path), "r") as json_file:
+            with open("{}/personal_auth_data.json".format(super_path.rsplit("/", 1)[0]), "r") as json_file:
                 self.json_data = json.load(json_file)
         except IOError:
             print("[ERROR] Is your json file name correct?")
