@@ -48,6 +48,9 @@ class TestFileScraper:
                     sys.stdout.write("test file %s\n" % name)
                     sys.stdout.write("                        ... ")
                     continue
+                except IOError:
+                    sys.stdout.write("\n     [ERROR] Could not create a specific test file.")
+                    continue
             else:
                 pass
         print("done")

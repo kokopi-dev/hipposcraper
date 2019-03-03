@@ -7,10 +7,6 @@ Usage:
 To-do:
     - fix low_scraper to scrape without header:
         test link: https://intranet.hbtn.io/projects/213
-
-    - fix set_permissions to catch no files
-        current error: chmod: cannot access '*': No such file or directory
-        does not seem to be an error
 """
 from scrapers import *
 
