@@ -131,7 +131,7 @@ class LowScraper:
         Handles multiple file names by searching for ','.
         """
         i = 0
-
+        sys.stdout.write("  -> Creating task files... ")
         for item in self.file_names:
             file_text = item.next_sibling.text
             # Breaks incase more function names over file names
@@ -174,3 +174,4 @@ class LowScraper:
                 sys.stdout.write("task file %s\n" % file_text)
                 sys.stdout.write("                        ... ")
                 continue
+        print("done")

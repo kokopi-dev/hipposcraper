@@ -4,5 +4,5 @@
 #+  link to a Holberton School project.
 
 project=$1
-python2 ENTER_FULL_PATHNAME_TO_DIRECTORY_HERE/project-all_scraper.py "$project"
+python2 ENTER_FULL_PATHNAME_TO_DIRECTORY_HERE/hipposcraper.py "$project"
 python2 ENTER_FULL_PATHNAME_TO_DIRECTORY_HERE/holberton-read_t.py "$project"

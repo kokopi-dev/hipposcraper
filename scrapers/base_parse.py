@@ -50,13 +50,18 @@ class BaseParse(object):
         """
         super_path = os.path.abspath("..")
         parent_path = os.path.basename(os.getcwd())
-        with open("{}/{}/auth_data.json".format(super_path, parent_path), "r") as json_file:
-            self.json_data = json.load(json_file)
+        try:
+            with open("{}/{}/personal_auth_data.json".format(super_path, parent_path), "r") as json_file:
+                self.json_data = json.load(json_file)
+        except IOError:
+            print("[ERROR] Is your json file name correct?")
+            sys.exit()
 
     def get_soup(self):
         """Method that parses the `htbn_link` with BeautifulSoup
 
-        Sets soup into self to create directories too.
+        Initially logs in the intranet using mechanize and cookiejar.
+        Then requests for the html of the link, and sets it into `soup`.
 
         Returns:
             soup (obj): BeautifulSoup parsed html object
