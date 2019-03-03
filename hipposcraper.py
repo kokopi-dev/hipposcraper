@@ -1,6 +1,9 @@
 #!/usr/bin/env python2
 """Main entry point for hipposcrape
 
+Usage:
+    `./hipposcraper.py https://intranet.hbtn.io/projects/232`
+
 To-do:
     - fix low_scraper to scrape without header:
         test link: https://intranet.hbtn.io/projects/213
@@ -49,12 +52,10 @@ def hipposcrape():
 
     link = get_args()
     parse_data = BaseParse(link)
-
     parse_data.get_json()
 
-    soup = parse_data.get_soup()
-
     print("Creating project:")
+    soup = parse_data.get_soup()
 
     parse_data.find_directory()
     parse_data.create_directory()
