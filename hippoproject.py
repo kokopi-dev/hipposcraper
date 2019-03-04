@@ -112,4 +112,5 @@ def hippoproject():
     set_permissions()
     print("Project all set!")
 
-hippoproject()
+if __name__ == "__main__":
+    hippoproject()

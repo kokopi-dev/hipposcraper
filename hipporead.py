@@ -67,4 +67,5 @@ def hipporead():
 
     print("README.md all set!")
 
-hipporead()
+if __name__ == "__main__":
+    hipporead()
