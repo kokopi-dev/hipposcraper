@@ -54,7 +54,7 @@ in the [auth_data.json](./auth_data.json) file.
 
 The Hipposcraper defines two separate Python scripts - one 
 ([hipposcraper.py](./hipposcraper.py)) that creates projects, 
-and a second ([holberton-read_t.py](./holberton-read_t.py)) that creates 
+and a second ([hipporead.py](./hipporead.py)) that creates 
 `README.md` files. To run both simultaneously, you'll need to define an alias 
 to the script [hipposcrape.sh](./hipposcrape.sh).
 
@@ -76,7 +76,7 @@ alias hippoproject='./ENTER_FULL_PATHNAME_TO_SCRAPER_DIRECTORY_HERE/hipposcraper
 And to define a `README.md` scraper alias:
 
 ```
-alias hipporead='./ENTER_FULL_PATHNAME_TO_SCRAPER_DIRECTORY_HERE/holberton-read_t.py'
+alias hipporead='./ENTER_FULL_PATHNAME_TO_SCRAPER_DIRECTORY_HERE/hipporead.py'
 ```
 
 *NOTE: This program only works with Python 2; ensure that your aliases 
@@ -116,7 +116,7 @@ Or only the `README.md` scraper:
   * Python script that scrapes Holberton intranet webpage to create project 
 directories.
 
-* [holberton-read_t.py](./holberton-read_t.py)
+* [hipporead.py](./hipporead.py)
   * Python script that scrapes Holberton intranet webpage to create project 
 `README.md`.
 
@@ -147,7 +147,7 @@ test files for all project types.
 
 ## README Modification :pencil2:
 To modify the scraping template for `README.md` creation, edit the 
-[holberton-read_t.py](./holberton-read_t.py) file.
+[hipporead.py](./hipporead.py) file.
 * In the block commented by `README TEMPLATE BELOW`, you can modify `.write` 
 functions to edit what is written into the file.
 * In the blocks commented by `SCRAPERS` and `EXTRA SCRAPES`, you can use the 
