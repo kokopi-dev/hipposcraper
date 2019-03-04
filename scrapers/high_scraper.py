@@ -79,7 +79,10 @@ class HighScraper:
                     os.mkdir(text_file)
                 else:
                     w_file_name = open(text_file, "w+")
-                    w_file_name.write("#!/usr/bin/python3\n")
+                    if ".py" in text_file:
+                        w_file_name.write("#!/usr/bin/python3\n")
+                    else:
+                        pass
                     # Creating prototypes in parallel with files
                     if find_pyfile != -1:
                         w_file_name.write(self.prototypes_list[file_idx])
