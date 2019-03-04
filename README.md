@@ -53,7 +53,7 @@ in the [auth_data.json](./auth_data.json) file.
 **Setting Aliases**
 
 The Hipposcraper defines two separate Python scripts - one 
-([hipposcraper.py](./hipposcraper.py)) that creates projects, 
+([hippoproject.py](./hippoproject.py)) that creates projects, 
 and a second ([hipporead.py](./hipporead.py)) that creates 
 `README.md` files. To run both simultaneously, you'll need to define an alias 
 to the script [hipposcrape.sh](./hipposcrape.sh).
@@ -112,7 +112,7 @@ Or only the `README.md` scraper:
 * [hipposcraper.sh](./hipposcraper.sh)
   * A Bash script for running the entire Hipposcraper at once.
 
-* [hipposcraper.py](./hipposcraper.py)
+* [hippoproject.py](./hippoproject.py)
   * Python script that scrapes Holberton intranet webpage to create project 
 directories.
 
