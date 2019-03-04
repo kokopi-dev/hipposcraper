@@ -2,7 +2,7 @@
 """Main entry point for hipposcrape
 
 Usage:
-    `./hipposcraper.py https://intranet.hbtn.io/projects/232`
+    `./hippoproject.py https://intranet.hbtn.io/projects/232`
 
 To-do:
     - fix low_scraper to scrape without header:
@@ -39,8 +39,8 @@ def set_permissions():
     except OSError:
         print("[ERROR] Failed to set permissions")
     
-def hipposcrape():
-    """Entry point for hipposcraper
+def hippoproject():
+    """Entry point for hippoproject
 
     Scrapes project type (low level, high level, or system engineer),
     then it checks project type to execute appropriate scrapes.
@@ -112,4 +112,4 @@ def hipposcrape():
     set_permissions()
     print("Project all set!")
 
-hipposcrape()
+hippoproject()

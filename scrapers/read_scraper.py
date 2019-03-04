@@ -13,6 +13,9 @@ class ReadScraper:
         soup (obj): BeautifulSoup obj containing parsed link
 
     Attributes:
+        title (str):
+        repo_name ():
+        dir_name ():
     """
 
     title = ""
@@ -29,14 +32,12 @@ class ReadScraper:
         self.soup = soup
 
     def find_title(self):
+        """Method that finds title of project"""
         prj_title = self.soup.find("h1")
         self.title = prj_title.text
 
     def find_repo_name(self):
-        """Method that finds the repository name
-
-        Note: will need to add .text method when writing
-        """
+        """Method that finds the repository name"""
         r_name = self.soup.find(string=re.compile("GitHub repository: "))
         self.repo_name = r_name.next_element
 
@@ -51,6 +52,7 @@ class ReadScraper:
             self.big_project_type = 1
 
     def find_learning(self):
+        """Method that finds the learning objectives"""
         try:
             find_prj_info = self.soup.find("h2", string=re.compile("Learning Objectives"))
             prj_info_t = find_prj_info.find_next("h3").next_element.next_element.next_element.text
@@ -62,6 +64,7 @@ class ReadScraper:
             pass
 
     def find_files(self):
+        """Method that finds file names"""
         try:
             file_list = self.soup.find_all(string=re.compile("File: "))
             for idx in file_list:
@@ -79,6 +82,7 @@ class ReadScraper:
             pass
 
     def find_tasks(self):
+        """Method that finds task names"""
         try:
             task_list = self.soup.find_all("h4", class_="task")
             for idx in task_list:
@@ -91,6 +95,7 @@ class ReadScraper:
             pass
 
     def find_task_de(self):
+        """Method that finds the task descriptions"""
         try:
             info_list = self.soup.find_all(string=lambda text: isinstance(text, Comment))
             for comments in info_list:
@@ -104,6 +109,7 @@ class ReadScraper:
             pass
 
     def open_readme(self):
+        """Method that opens the README.md file"""
         try:
             if self.big_project_type == 1:
                 raise IOError
@@ -113,12 +119,14 @@ class ReadScraper:
             self.readme = open("README.md", "w")
 
     def write_title(self):
+        """Method that writes the title to README.md"""
         sys.stdout.write("  -> Writing project title... ")
         self.readme.write("# {}\n".format(self.title))
         self.readme.write("\n")
         print("done")
 
     def write_info(self):
+        """Method that writes project info to README.md"""
         sys.stdout.write("  -> Writing learning objectives... ")
         self.readme.write("## Description\n")
         self.readme.write("What you should learn from this project:\n")
@@ -136,6 +144,7 @@ class ReadScraper:
         self.readme.write("---\n")
 
     def write_tasks(self):
+        """Method that writes the entire tasks to README.md"""
         if (self.task_names is not None and
             self.file_names is not None and
             self.task_info is not None):
@@ -157,6 +166,7 @@ class ReadScraper:
             print("done")
 
     def write_footer(self, author, user, git_link):
+        """Method that writes the footer to README.md"""
         sys.stdout.write("  -> Writing author information... ")
         self.readme.write("---\n")
         self.readme.write("\n")
