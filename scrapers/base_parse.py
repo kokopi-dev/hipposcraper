@@ -84,6 +84,8 @@ class BaseParse(object):
 
         print("done")
         self.soup = BeautifulSoup(page, 'html.parser')
+        br.close()
+        del page
         return self.soup
 
     def find_directory(self):
