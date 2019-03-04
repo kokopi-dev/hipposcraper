@@ -5,4 +5,4 @@
 
 project=$1
 python2 ENTER_FULL_PATHNAME_TO_DIRECTORY_HERE/hipposcraper.py "$project"
-python2 ENTER_FULL_PATHNAME_TO_DIRECTORY_HERE/holberton-read_t.py "$project"
+python2 ENTER_FULL_PATHNAME_TO_DIRECTORY_HERE/hipporead.py "$project"
