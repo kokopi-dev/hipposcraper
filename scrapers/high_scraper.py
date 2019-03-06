@@ -65,10 +65,10 @@ class HighScraper:
                 find_dir_file = re.search('/(.+?)$', text_file)
                 if find_dir_file is not None:
                     new_dir_files.append(str(find_dir_file.group(1)))
-                if find_folder is not None and one_dir_only is 0:
+                if find_folder is not None and one_dir_check is 0:
                     folder_name = str(find_folder.group(1))
                     os.mkdir(folder_name)
-                    one_dir_only += 1
+                    one_dir_check += 1
 
                 # Handling multiple files
                 if "," in text_file:
