@@ -100,7 +100,7 @@ class LowScraper:
 
                 try:
                     if self.putchar_check == "_putchar":
-                        w_header.write("int _putchar(char c);\n")
+                        w_header.write("int _putchar(char c)\n")
                 except TypeError:
                     pass
 
