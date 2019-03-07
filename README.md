@@ -1,3 +1,4 @@
+![github version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=1.0.0&x2=0)
 # Hipposcraper - Python Scripts for Automating Holberton Projects
 
 <p align="center">
@@ -20,6 +21,8 @@ the following:
 ---
 
 ## Getting Started :wrench:
+
+### IMPORTANT: Make sure your version is up to date (at the top of the readme), running hippoproject or hipporead will display the version.
 
 Follow these instructions to set up the Hipposcraper on your machine.
 
@@ -143,7 +146,7 @@ test files for all project types.
 
 ## Example of the README scraper
 
-![demo1](https://i.imgur.com/80DBf4Z.jpg)
+![demo1](https://i.imgur.com/6qaC92l.jpg)
 
 ## README Modification :pencil2:
 To modify the scraping template for `README.md` creation, edit the 
