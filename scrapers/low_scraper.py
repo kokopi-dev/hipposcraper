@@ -100,7 +100,7 @@ class LowScraper:
 
                 try:
                     if self.putchar_check == "_putchar":
-                        w_header.write("int _putchar(char c)\n")
+                        w_header.write("int _putchar(char c);\n")
                 except TypeError:
                     pass
 
@@ -109,7 +109,7 @@ class LowScraper:
                     if n == len(self.prototypes_list):
                         break
                     w_header.write(self.prototypes_list[n])
-                    w_header.write("\n")
+                    w_header.write(";\n")
                     n += 1
 
                 w_header.write("\n")
