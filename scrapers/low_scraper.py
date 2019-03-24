@@ -108,8 +108,7 @@ class LowScraper:
                 for item in self.prototypes_list:
                     if n == len(self.prototypes_list):
                         break
-                    w_header.write(self.prototypes_list[n])
-                    w_header.write(";\n")
+                    w_header.write(self.prototypes_list[n] + ";\n")
                     n += 1
 
                 w_header.write("\n")

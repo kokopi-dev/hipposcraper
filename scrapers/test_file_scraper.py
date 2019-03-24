@@ -29,7 +29,7 @@ class TestFileScraper:
             # find_main checks if there are main files on project page
             if find_test != -1 and (find_c != -1 or find_py != -1):
                 try:
-                    user = item.text.split(":", 1)[0]
+                    user = item.text.split("$", 1)[0]
                     name = item.text.split("cat ", 1)[1]
                     if find_c != -1:
                         name = name.split(".c", 1)[0] + ".c"
