@@ -60,7 +60,7 @@ class ReadScraper:
         except AttributeError:
             print("[ERROR] Failed to scrape learning objectives")
             sys.stdout.write("                         ... ")
-            self.prj_info = None
+            self.prj_info = ""
             pass
 
     def find_files(self):
