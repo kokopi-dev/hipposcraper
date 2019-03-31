@@ -25,14 +25,17 @@ class TestFileScraper:
             find_test = item.text.find("cat")
             find_c = item.text.find("main.c")
             find_py = item.text.find(".py")
+            find_sql = item.text.find(".sql")
 
             # find_main checks if there are main files on project page
-            if find_test != -1 and (find_c != -1 or find_py != -1):
+            if find_test != -1 and (find_c != -1 or find_py != -1 or find_sql != -1):
                 try:
                     user = item.text.split("$", 1)[0]
                     name = item.text.split("cat ", 1)[1]
                     if find_c != -1:
                         name = name.split(".c", 1)[0] + ".c"
+                    elif find_sql != -1:
+                        name = name.split(".sql", 1)[0] + ".sql"
                     else:
                         name = name.split(".py", 1)[0] + ".py"
                     text = item.text.split(name, 1)[1]
