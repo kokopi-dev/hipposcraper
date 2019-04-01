@@ -50,7 +50,7 @@ def hippoproject():
     parse_data = BaseParse(link)
     parse_data.get_json()
 
-    print("\nHipposcraper version 1.0.2")
+    print("\nHipposcraper version 1.0.3")
     print("Creating project:")
     soup = parse_data.get_soup()
 
