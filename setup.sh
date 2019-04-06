@@ -1,72 +1,78 @@
 #!/usr/bin/env bash
-# Initial variable setup for hipposcraper
-# Run this to configure file paths and setup user information
-project_alias="alias='python2 $(pwd)/hippoproject.py'"
-read_alias="alias='python2 $(pwd)/hipporead.py'"
-scrape_alias="alias='python2 $(pwd)/hipposcrape.sh'"
-echo "Press Ctrl-C if you need to redo"
-echo "What is your Holberton Email?"
-read setup_user
-echo "What is your Holberton Email's Password?"
-read setup_pass
-echo "What is your full name?"
-read setup_name
-echo "What is your github user name?"
-read setup_github_name
-echo "What is your github profile's link?"
-read setup_github_link
-echo "Type anything to continue, press Ctrl-C to redo something"
-read confirmation
+# Sets up the hipposcraper:
+#+  Configures aliases in .bashrc
+#+  Sets inputted user information in auth.json
+
+echo "Thanks for downloading the Hipposcraper! Let's get you set up."
+echo -n "  -> Holberton Intranet email: "
+read -r email
+echo -n "  -> Holberton Intranet password: "
+read -r password
+echo -n "  -> Full name (for author section of README's): "
+read -r name
+echo -n "  -> Github username: "
+read -r github_username
+echo -n "  -> Github profile link: "
+read -r github_link
 
 if grep -q YOUR_HOLBERTON_INTRANET_USERNAME auth_data.json
 then
-    sed -i "s/YOUR_HOLBERTON_INTRANET_USERNAME/$setup_user/g" auth_data.json
+    sed -i "s/YOUR_HOLBERTON_INTRANET_USERNAME/$email/g" auth_data.json
 fi
 
 if grep -q YOUR_HOLBERTON_INTRANET_PASSWORD auth_data.json
 then
-    sed -i "s/YOUR_HOLBERTON_INTRANET_PASSWORD/$setup_pass/g" auth_data.json
+    sed -i "s/YOUR_HOLBERTON_INTRANET_PASSWORD/$password/g" auth_data.json
 fi
 
 if grep -q YOUR_NAME auth_data.json
 then
-    sed -i "s/YOUR_NAME/$setup_name/g" auth_data.json
+    sed -i "s/YOUR_NAME/$name/g" auth_data.json
 fi
 
 if grep -q YOUR_GITHUB_USERNAME auth_data.json
 then
-    sed -i "s/YOUR_GITHUB_USERNAME/$setup_github_name/g" auth_data.json
+    sed -i "s/YOUR_GITHUB_USERNAME/$github_username/g" auth_data.json
 fi
 
 if grep -q YOUR_GITHUB_PROFILE_LINK auth_data.json
 then
-    sed -i "s/YOUR_GITHUB_PROFILE_LINK/$setup_github_link/g" auth_data.json
+  sed -i "s,YOUR_GITHUB_PROFILE_LINK,$github_link,g" auth_data.json
 fi
 
-if grep -q Hipposcraper-alias ~/.bashrc
+echo "Setting aliases:"
+if ! grep -q hippoproject ~/.bashrc || \
+   ! grep -q hipporead  ~/.bashrc || \
+   ! grep -q hipposcrape ~/.bashrc
 then
-    :
-else
-    echo "# Hipposcraper-alias"
+  echo -e "\n# Hipposcraper aliases" >> ~/.bashrc
 fi
 
-if grep -q -i hippoproject.py ~/.bashrc
+if ! grep -q hippoproject.py ~/.bashrc
 then
-    :
-else
+    project_alias="alias hippoproject='python2 $(pwd)/hippoproject.py'"
     echo "$project_alias" >> ~/.bashrc
+    echo "  -> $project_alias"
+else
+  echo "  -> hippoproject already defined"
 fi
 
-if grep -q -i hipporead.py ~/.bashrc
+if ! grep -q hipporead.py ~/.bashrc
 then
-    :
+  read_alias="alias hipporead='python2 $(pwd)/hipporead.py'"
+  echo "$read_alias" >> ~/.bashrc
+  echo "  -> $read_alias"
 else
-    echo "$read_alias" >> ~/.bashrc
+  echo "  -> hipporead already defined"
 fi
 
-if grep -q -i hipposcrape.sh ~/.bashrc
+if ! grep -q hipposcrape.sh ~/.bashrc
 then
-    :
-else
+    scrape_alias="alias hipposcrape='python2 $(pwd)/hipposcrape.sh'"
     echo "$scrape_alias" >> ~/.bashrc
+    echo "  -> $scrape_alias"
+else
+  echo "  -> hipposcrape already defined"
 fi
+
+echo "All set!"
