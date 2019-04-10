@@ -81,6 +81,8 @@ class HighScraper:
                     w_file_name = open(text_file, "w+")
                     if ".py" in text_file:
                         w_file_name.write("#!/usr/bin/python3\n")
+                    elif ".sh" in text_file:
+                        w_file_name.write("#!/bin/bash\n")
                     else:
                         pass
                     # Creating prototypes in parallel with files
