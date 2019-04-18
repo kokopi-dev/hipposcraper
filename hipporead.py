@@ -36,7 +36,7 @@ def hipporead():
     parse_data = BaseParse(link)
     parse_data.get_json()
 
-    print("\nHipposcraper version 1.0.5")
+    print("\nHipposcraper version 1.0.6")
     print("Creating README.md file:")
     soup = parse_data.get_soup()
 
