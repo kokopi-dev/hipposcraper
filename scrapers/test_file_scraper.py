@@ -47,6 +47,14 @@ class TestFileScraper:
                         w_test_file.write(text[i].encode('utf-8') + "\n")
                     w_test_file.close()
                 except (AttributeError, IndexError):
+                    newlines = 0
+                    # Checks if test file's name has more than 1 newline
+                    for i in name:
+                        if newlines > 1:
+                            name = "[Not a test file]"
+                            break
+                        if i == "\n":
+                            newlines += 1
                     sys.stdout.write("[ERROR] Could not create ")
                     sys.stdout.write("test file %s\n" % name)
                     sys.stdout.write("                        ... ")
