@@ -148,15 +148,6 @@ test files for all project types.
 
 ![demo1](https://i.imgur.com/6qaC92l.jpg)
 
-## README Modification :pencil2:
-To modify the scraping template for `README.md` creation, edit the 
-[hipporead.py](./hipporead.py) file.
-* In the block commented by `README TEMPLATE BELOW`, you can modify `.write` 
-functions to edit what is written into the file.
-* In the blocks commented by `SCRAPERS` and `EXTRA SCRAPES`, you can use the 
-variables ending with `_arr` to modify the `README.md` contents.
-  * Note that the information is stored in lists.
-
 ---
 
 ## Author
