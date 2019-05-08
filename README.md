@@ -1,4 +1,4 @@
-![github version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=1.0.5&x2=0)
+![github version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=1.0.6&x2=0)
 # Hipposcraper - Python Scripts for Automating Holberton Projects
 
 <p align="center">

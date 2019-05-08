@@ -46,7 +46,10 @@ class SysScraper:
                 w_file_name.close()
             except (AttributeError, IndexError):
                 sys.stdout.write("[ERROR] Failed to create ")
-                sys.stdout.write("task file %s\n" % item.next_sibling.text)
+                try:
+                    sys.stdout.write("task file %s\n" % item.next_sibling.text)
+                except AttributeError:
+                    sys.stdout.write("any task files, tasks do not exist\n")
                 sys.stdout.write("                        ... ")
                 continue
         print("done")
