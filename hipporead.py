@@ -42,14 +42,6 @@ def hipporead():
     # Creating scraping object
     r_scraper = ReadScraper(parse_data.soup)
 
-    # Scraping necessary data
-    r_scraper.find_title()
-    r_scraper.find_repo_name()
-    r_scraper.find_learning()
-    r_scraper.find_files()
-    r_scraper.find_tasks()
-    r_scraper.find_task_de()
-    r_scraper.check_big_project()
     print("done")
 
     # Writing to README.md with scraped data
