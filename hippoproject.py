@@ -68,12 +68,6 @@ def hippoproject():
         lo_scraper = LowScraper(parse_data.soup)
         t_scraper = TestFileScraper(parse_data.soup)
 
-        # Scraping necessary data
-        lo_scraper.find_putchar()
-        lo_scraper.find_prototypes()
-        lo_scraper.find_header()
-        lo_scraper.find_files()
-
         # Writing to files with scraped data
         lo_scraper.write_putchar()
         lo_scraper.write_header()
