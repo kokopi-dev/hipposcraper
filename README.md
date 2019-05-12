@@ -52,6 +52,7 @@ Note that you may need to run the `--user` option when installing these packages
 After cloning a local copy of the repository, enter your Holberton intranet 
 username and password as well as your GitHub name, username, and profile link 
 in the [auth_data.json](./auth_data.json) file.
+  - **Using `setup.sh`: Run `./setup.sh` to automatically setup the required information**
 
 **Setting Aliases**
 
