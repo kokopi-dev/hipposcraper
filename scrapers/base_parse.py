@@ -17,12 +17,12 @@ class BaseParse(object):
         soup (obj): BeautifulSoup obj containing parsed link
         dir_name (str): directory name of the link
     """
-    json_data = None
-    soup = None
-    dir_name = ""
 
     def __init__(self, link=""):
         self.htbn_link = link
+        self.json_data = self.get_json()
+        self.soup = self.get_soup()
+        self.dir_name = self.find_directory()
 
     @property
     def htbn_link(self):
@@ -50,8 +50,8 @@ class BaseParse(object):
         """
         super_path = os.path.dirname(os.path.abspath(__file__))
         try:
-            with open("{}/auth_data.json".format(super_path.rsplit("/", 1)[0]), "r") as json_file:
-                self.json_data = json.load(json_file)
+            with open("{}/personal_auth_data.json".format(super_path.rsplit("/", 1)[0]), "r") as json_file:
+                return json.load(json_file)
         except IOError:
             print("[ERROR] Is your json file name correct?")
             sys.exit()
@@ -95,7 +95,7 @@ class BaseParse(object):
         """
         find_dir = self.soup.find(string=re.compile("Directory: "))
         find_dir_text = find_dir.next_element.text
-        self.dir_name = find_dir_text
+        return find_dir_text
 
     def create_directory(self):
         """Method that creates appropriate directory"""
