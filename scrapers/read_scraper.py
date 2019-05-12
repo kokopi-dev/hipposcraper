@@ -18,7 +18,6 @@ class ReadScraper:
         dir_name ():
     """
 
-    title = ""
     repo_name = None
     dir_name = ""
     big_project_type = 0
@@ -30,11 +29,12 @@ class ReadScraper:
 
     def __init__(self, soup):
         self.soup = soup
+        self.title = self.find_title()
 
     def find_title(self):
         """Method that finds title of project"""
         prj_title = self.soup.find("h1")
-        self.title = prj_title.text
+        return prj_title.text
 
     def find_repo_name(self):
         """Method that finds the repository name"""
@@ -44,19 +44,21 @@ class ReadScraper:
     def check_big_project(self):
         """Method that checks if project is a big one"""
         try:
-            self.dir_name = self.repo_name.find_next("li").next_element.next_element.text
+            self.dir_name = self.repo_name.find_next("li").next_element.\
+                            next_element.text
             if "-" not in self.dir_name:
                 raise AttributeError
         except AttributeError:
-            sys.stdout.write("\n     [ERROR] Failed to find directory, skipping directory creation... ")
+            sys.stdout.write("\n     [ERROR] Failed to find directory,\
+                             skipping directory creation... ")
             self.big_project_type = 1
 
     def find_learning(self):
         """Method that finds the learning objectives"""
         try:
-            find_prj_info = self.soup.find("h2", string=re.compile("Learning Objectives"))
-            prj_info_t = find_prj_info.find_next("h3").next_element.next_element.next_element.text
-            self.prj_info = prj_info_t.splitlines()
+            h2 = self.soup.find("h2", string=re.compile("Learning Objectives"))
+            h3 = h2.find_next("h3").next_element.next_element.next_element.text
+            self.prj_info = h3.splitlines()
         except AttributeError:
             print("[ERROR] Failed to scrape learning objectives")
             sys.stdout.write("                         ... ")
@@ -97,7 +99,8 @@ class ReadScraper:
     def find_task_de(self):
         """Method that finds the task descriptions"""
         try:
-            info_list = self.soup.find_all(string=lambda text: isinstance(text, Comment))
+            info_list = self.soup.find_all(string=lambda text: isinstance
+                                           (text, Comment))
             for comments in info_list:
                 if comments == " Task Body ":
                     info_text = comments.next_element.next_element.text
@@ -145,22 +148,21 @@ class ReadScraper:
 
     def write_tasks(self):
         """Method that writes the entire tasks to README.md"""
-        if (self.task_names is not None and
-            self.file_names is not None and
+        if (self.task_names is not None and self.file_names is not None and
             self.task_info is not None):
             sys.stdout.write("  -> Writing task information... ")
             count = 0
             while count < len(self.task_names):
                 try:
                     self.readme.write("\n")
-                    self.readme.write("### [{}](./{})\n"
-                               .format(self.task_names[count], self.file_names[count]))
+                    self.readme.write("### [{}](./{})\n".format(
+                                      self.task_names[count], self.file_names[count]))
                     self.readme.write("* {}\n".format(self.task_info[count]))
                     self.readme.write("\n")
                     count += 1
                 except IndexError:
                     sys.stdout.write("\n     [ERROR] Could not write task {}... "
-                                    .format(self.task_names[count]))
+                                     .format(self.task_names[count]))
                     count += 1
                     continue
             print("done")
@@ -175,4 +177,3 @@ class ReadScraper:
         self.readme.write("[{}]".format(user))
         self.readme.write("({})".format(git_link))
         print("done")
-
