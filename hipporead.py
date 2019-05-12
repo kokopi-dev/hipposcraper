@@ -34,7 +34,7 @@ def hipporead():
 
     link = get_args()
 
-    print("\nHipposcraper version 1.0.7")
+    print("\nHipposcraper version 1.0.8")
     print("Creating README.md file:")
     parse_data = BaseParse(link)
 
