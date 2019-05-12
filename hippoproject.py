@@ -43,12 +43,10 @@ def hippoproject():
     """
 
     link = get_args()
-    parse_data = BaseParse(link)
-    parse_data.get_json()
 
     print("\nHipposcraper version 1.0.7")
     print("Creating project:")
-    soup = parse_data.get_soup()
+    parse_data = BaseParse(link)
 
     parse_data.find_directory()
     parse_data.create_directory()
@@ -56,8 +54,8 @@ def hippoproject():
     project_type = parse_data.project_type_check()
     if "high" in project_type:
         # Creating scraping objects
-        hi_scraper = HighScraper(soup)
-        t_scraper = TestFileScraper(soup)
+        hi_scraper = HighScraper(parse_data.soup)
+        t_scraper = TestFileScraper(parse_data.soup)
 
         # Scraping necessary data
         hi_scraper.find_prototypes()
@@ -72,8 +70,8 @@ def hippoproject():
 
     elif "low" in project_type:
         # Creating scraping objects
-        lo_scraper = LowScraper(soup)
-        t_scraper = TestFileScraper(soup)
+        lo_scraper = LowScraper(parse_data.soup)
+        t_scraper = TestFileScraper(parse_data.soup)
 
         # Scraping necessary data
         lo_scraper.find_putchar()
@@ -92,8 +90,8 @@ def hippoproject():
 
     elif "system" in project_type:
         # Creating scraping objects
-        sy_scraper = SysScraper(soup)
-        t_scraper = TestFileScraper(soup)
+        sy_scraper = SysScraper(parse_data.soup)
+        t_scraper = TestFileScraper(parse_data.soup)
 
         # Scraping necessary data
         sy_scraper.ruby_checker()

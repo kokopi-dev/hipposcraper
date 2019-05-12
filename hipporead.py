@@ -33,16 +33,14 @@ def hipporead():
     """
 
     link = get_args()
-    parse_data = BaseParse(link)
-    parse_data.get_json()
 
     print("\nHipposcraper version 1.0.7")
     print("Creating README.md file:")
-    soup = parse_data.get_soup()
+    parse_data = BaseParse(link)
 
     sys.stdout.write("  -> Scraping information... ")
     # Creating scraping object
-    r_scraper = ReadScraper(soup)
+    r_scraper = ReadScraper(parse_data.soup)
 
     # Scraping necessary data
     r_scraper.find_title()
