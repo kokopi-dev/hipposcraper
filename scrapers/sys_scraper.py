@@ -42,6 +42,8 @@ class SysScraper:
                 w_file_name = open(item.next_sibling.text, "w")
                 if self.ruby_check == 0:
                     w_file_name.write("#!/usr/bin/env ruby\n")
+                elif ".py" in item.next_sibling.text:
+                    w_file_name.write("#!/usr/bin/python3\n")
                 else:
                     w_file_name.write("#!/usr/bin/env bash\n")
                 w_file_name.close()

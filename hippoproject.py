@@ -1,12 +1,8 @@
 #!/usr/bin/env python2
-"""Main entry point for hipposcrape
+"""Main entry point for hippoproject
 
 Usage:
     `./hippoproject.py https://intranet.hbtn.io/projects/232`
-
-To-do:
-    - fix low_scraper to scrape without header:
-        test link: https://intranet.hbtn.io/projects/213
 """
 from scrapers import *
 
@@ -102,6 +98,10 @@ def hippoproject():
         # Scraping necessary data
         sy_scraper.ruby_checker()
         sy_scraper.find_files()
+
+        # Finding and creating test files
+        t_scraper.find_test_files()
+        t_scraper.write_test_files()
 
         # Writing to files with scraped data
         sy_scraper.write_files()
