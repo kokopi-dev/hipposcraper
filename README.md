@@ -1,5 +1,7 @@
-![github version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=1.0.7&x2=0)
+![github version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=1.0.8&x2=0)
 # Hipposcraper - Python Scripts for Automating Holberton Projects
+
+## [STATUS] This repo is no longer maintained by [Derrick Gee](https://github.com/kai-dg) and [Brennan D Baraban](https://github.com/bdbaraban), please ask around or on the Holberton Slack to find someone who is maintaining a fork of this repo if you are looking for an updated version of this scraper.
 
 <p align="center">
   <img src="http://www.holbertonschool.com/holberton-logo.png">
