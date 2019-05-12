@@ -1,4 +1,4 @@
-![github version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=1.0.6&x2=0)
+![github version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=1.0.7&x2=0)
 # Hipposcraper - Python Scripts for Automating Holberton Projects
 
 <p align="center">
@@ -52,6 +52,7 @@ Note that you may need to run the `--user` option when installing these packages
 After cloning a local copy of the repository, enter your Holberton intranet 
 username and password as well as your GitHub name, username, and profile link 
 in the [auth_data.json](./auth_data.json) file.
+  - **Using `setup.sh`: Run `./setup.sh` to automatically setup the required information**
 
 **Setting Aliases**
 
@@ -147,15 +148,6 @@ test files for all project types.
 ## Example of the README scraper
 
 ![demo1](https://i.imgur.com/6qaC92l.jpg)
-
-## README Modification :pencil2:
-To modify the scraping template for `README.md` creation, edit the 
-[hipporead.py](./hipporead.py) file.
-* In the block commented by `README TEMPLATE BELOW`, you can modify `.write` 
-functions to edit what is written into the file.
-* In the blocks commented by `SCRAPERS` and `EXTRA SCRAPES`, you can use the 
-variables ending with `_arr` to modify the `README.md` contents.
-  * Note that the information is stored in lists.
 
 ---
 

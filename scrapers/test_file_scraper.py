@@ -10,14 +10,12 @@ class TestFileScraper:
     Args:
         soup (obj): BeautifulSoup obj containing parsed link
     """
-
-    pre = None
-
     def __init__(self, soup):
         self.soup = soup
+        self.pre = self.find_test_files()
 
     def find_test_files(self):
-        self.pre = self.soup.select("pre")
+        return self.soup.select("pre")
 
     def write_test_files(self):
         sys.stdout.write("  -> Creating test files... ")

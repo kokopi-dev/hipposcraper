@@ -17,54 +17,58 @@ class ReadScraper:
         repo_name ():
         dir_name ():
     """
-
-    title = ""
-    repo_name = None
-    dir_name = ""
     big_project_type = 0
-    prj_info = None
-    file_names = []
-    task_names = []
     task_info = []
     readme = None
 
     def __init__(self, soup):
         self.soup = soup
+        self.title = self.find_title()
+        self.repo_name = self.find_repo_name()
+        self.dir_name = self.check_big_project()
+        self.prj_info = self.find_learning()
+        self.file_names = self.find_files()
+        self.task_names = self.find_tasks()
+        self.task_info = self.find_task_de()
 
     def find_title(self):
         """Method that finds title of project"""
         prj_title = self.soup.find("h1")
-        self.title = prj_title.text
+        return prj_title.text
 
     def find_repo_name(self):
         """Method that finds the repository name"""
         r_name = self.soup.find(string=re.compile("GitHub repository: "))
-        self.repo_name = r_name.next_element
+        return r_name.next_element
 
     def check_big_project(self):
         """Method that checks if project is a big one"""
         try:
-            self.dir_name = self.repo_name.find_next("li").next_element.next_element.text
-            if "-" not in self.dir_name:
+            temp = self.repo_name.find_next("li").next_element.next_element.text
+            if "-" not in temp:
                 raise AttributeError
+            else:
+                return temp
         except AttributeError:
-            sys.stdout.write("\n     [ERROR] Failed to find directory, skipping directory creation... ")
+            sys.stdout.write("\n     [ERROR] Failed to find directory,\
+                             skipping directory creation... ")
             self.big_project_type = 1
+            return "" 
 
     def find_learning(self):
         """Method that finds the learning objectives"""
         try:
-            find_prj_info = self.soup.find("h2", string=re.compile("Learning Objectives"))
-            prj_info_t = find_prj_info.find_next("h3").next_element.next_element.next_element.text
-            self.prj_info = prj_info_t.splitlines()
+            h2 = self.soup.find("h2", string=re.compile("Learning Objectives"))
+            h3 = h2.find_next("h3").next_element.next_element.next_element.text
+            return h3.splitlines()
         except AttributeError:
             print("[ERROR] Failed to scrape learning objectives")
             sys.stdout.write("                         ... ")
-            self.prj_info = ""
-            pass
+            return ""
 
     def find_files(self):
         """Method that finds file names"""
+        temp = []
         try:
             file_list = self.soup.find_all(string=re.compile("File: "))
             for idx in file_list:
@@ -72,41 +76,44 @@ class ReadScraper:
                 # Finding comma index for multiple files listed
                 find_comma = file_text.find(",")
                 if find_comma != -1:
-                    self.file_names.append(file_text[:find_comma])
+                    temp.append(file_text[:find_comma])
                 else:
-                    self.file_names.append(file_text)
+                    temp.append(file_text)
+            return temp
         except (IndexError, AttributeError):
             print("[ERROR] Failed to scrape file names")
             sys.stdout.write("                         ... ")
-            self.file_names = None
-            pass
+            return None
 
     def find_tasks(self):
         """Method that finds task names"""
+        temp = []
         try:
             task_list = self.soup.find_all("h4", class_="task")
             for idx in task_list:
                 item = idx.next_element.strip("\n").strip()
-                self.task_names.append(item)
+                temp.append(item)
+            return temp
         except (IndexError, AttributeError):
             print("[ERROR] Failed to scrape task titles")
             sys.stdout.write("                         ... ")
-            self.task_names = None
-            pass
+            return None
 
     def find_task_de(self):
         """Method that finds the task descriptions"""
+        temp = []
         try:
-            info_list = self.soup.find_all(string=lambda text: isinstance(text, Comment))
+            info_list = self.soup.find_all(string=lambda text: isinstance
+                                           (text, Comment))
             for comments in info_list:
                 if comments == " Task Body ":
                     info_text = comments.next_element.next_element.text
-                    self.task_info.append(info_text.encode('utf-8'))
+                    temp.append(info_text.encode('utf-8'))
+            return temp
         except (IndexError, AttributeError):
             print("[ERROR] Failed to scrape task descriptions")
             print("                         ... ")
-            self.task_info = None
-            pass
+            return None
 
     def open_readme(self):
         """Method that opens the README.md file"""
@@ -145,22 +152,21 @@ class ReadScraper:
 
     def write_tasks(self):
         """Method that writes the entire tasks to README.md"""
-        if (self.task_names is not None and
-            self.file_names is not None and
+        if (self.task_names is not None and self.file_names is not None and
             self.task_info is not None):
             sys.stdout.write("  -> Writing task information... ")
             count = 0
             while count < len(self.task_names):
                 try:
                     self.readme.write("\n")
-                    self.readme.write("### [{}](./{})\n"
-                               .format(self.task_names[count], self.file_names[count]))
+                    self.readme.write("### [{}](./{})\n".format(
+                                      self.task_names[count], self.file_names[count]))
                     self.readme.write("* {}\n".format(self.task_info[count]))
                     self.readme.write("\n")
                     count += 1
                 except IndexError:
                     sys.stdout.write("\n     [ERROR] Could not write task {}... "
-                                    .format(self.task_names[count]))
+                                     .format(self.task_names[count]))
                     count += 1
                     continue
             print("done")
@@ -175,4 +181,3 @@ class ReadScraper:
         self.readme.write("[{}]".format(user))
         self.readme.write("({})".format(git_link))
         print("done")
-

@@ -1,12 +1,8 @@
 #!/usr/bin/env python2
-"""Main entry point for hipposcrape
+"""Main entry point for hippoproject
 
 Usage:
     `./hippoproject.py https://intranet.hbtn.io/projects/232`
-
-To-do:
-    - fix low_scraper to scrape without header:
-        test link: https://intranet.hbtn.io/projects/213
 """
 from scrapers import *
 
@@ -47,12 +43,10 @@ def hippoproject():
     """
 
     link = get_args()
-    parse_data = BaseParse(link)
-    parse_data.get_json()
 
-    print("\nHipposcraper version 1.0.6")
+    print("\nHipposcraper version 1.0.7")
     print("Creating project:")
-    soup = parse_data.get_soup()
+    parse_data = BaseParse(link)
 
     parse_data.find_directory()
     parse_data.create_directory()
@@ -60,48 +54,35 @@ def hippoproject():
     project_type = parse_data.project_type_check()
     if "high" in project_type:
         # Creating scraping objects
-        hi_scraper = HighScraper(soup)
-        t_scraper = TestFileScraper(soup)
-
-        # Scraping necessary data
-        hi_scraper.find_prototypes()
-        hi_scraper.find_files()
+        hi_scraper = HighScraper(parse_data.soup)
+        t_scraper = TestFileScraper(parse_data.soup)
 
         # Writing to files with scraped data
         hi_scraper.write_files()
 
-        # Finding and creating test files
-        t_scraper.find_test_files()
+        # Creating test (main) files
         t_scraper.write_test_files()
 
     elif "low" in project_type:
         # Creating scraping objects
-        lo_scraper = LowScraper(soup)
-        t_scraper = TestFileScraper(soup)
-
-        # Scraping necessary data
-        lo_scraper.find_putchar()
-        lo_scraper.find_prototypes()
-        lo_scraper.find_header()
-        lo_scraper.find_files()
+        lo_scraper = LowScraper(parse_data.soup)
+        t_scraper = TestFileScraper(parse_data.soup)
 
         # Writing to files with scraped data
         lo_scraper.write_putchar()
         lo_scraper.write_header()
         lo_scraper.write_files()
 
-        # Finding and creating test files
-        t_scraper.find_test_files()
+        # Creating test (main) files
         t_scraper.write_test_files()
 
     elif "system" in project_type:
         # Creating scraping objects
-        sy_scraper = SysScraper(soup)
-        t_scraper = TestFileScraper(soup)
+        sy_scraper = SysScraper(parse_data.soup)
+        t_scraper = TestFileScraper(parse_data.soup)
 
-        # Scraping necessary data
-        sy_scraper.ruby_checker()
-        sy_scraper.find_files()
+        # Creating test (main) files
+        t_scraper.write_test_files()
 
         # Writing to files with scraped data
         sy_scraper.write_files()
