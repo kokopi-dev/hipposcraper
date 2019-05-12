@@ -16,22 +16,23 @@ class SysScraper:
         file_names (list): scraped file names from find_files()
     """
 
-    ruby_check = ""
-    file_names = None
-
     def __init__(self, soup):
         self.soup = soup
+        self.file_names = self.find_files()
+        self.ruby_check = self.ruby_checker()
 
     def ruby_checker(self):
         """Method that checks for ruby files in project
         """
-        self.ruby_check = self.soup.find_all(string=re.compile("env ruby"))
-        if self.ruby_check != []:
-            self.ruby_check = 0
+        temp = self.soup.find_all(string=re.compile("env ruby"))
+        if temp != []:
+            return = 0
+        else:
+            return temp
 
     def find_files(self):
         """Method that scrapes bash or ruby for file names"""
-        self.file_names = self.soup.find_all(string=re.compile("File: "))
+        return self.soup.find_all(string=re.compile("File: "))
 
     def write_files(self):
         """Method that writes/creates bash or ruby files"""
