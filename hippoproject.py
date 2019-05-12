@@ -57,15 +57,10 @@ def hippoproject():
         hi_scraper = HighScraper(parse_data.soup)
         t_scraper = TestFileScraper(parse_data.soup)
 
-        # Scraping necessary data
-        hi_scraper.find_prototypes()
-        hi_scraper.find_files()
-
         # Writing to files with scraped data
         hi_scraper.write_files()
 
-        # Finding and creating test files
-        t_scraper.find_test_files()
+        # Creating test (main) files
         t_scraper.write_test_files()
 
     elif "low" in project_type:
@@ -84,8 +79,7 @@ def hippoproject():
         lo_scraper.write_header()
         lo_scraper.write_files()
 
-        # Finding and creating test files
-        t_scraper.find_test_files()
+        # Creating test (main) files
         t_scraper.write_test_files()
 
     elif "system" in project_type:
@@ -93,12 +87,7 @@ def hippoproject():
         sy_scraper = SysScraper(parse_data.soup)
         t_scraper = TestFileScraper(parse_data.soup)
 
-        # Scraping necessary data
-        sy_scraper.ruby_checker()
-        sy_scraper.find_files()
-
-        # Finding and creating test files
-        t_scraper.find_test_files()
+        # Creating test (main) files
         t_scraper.write_test_files()
 
         # Writing to files with scraped data
