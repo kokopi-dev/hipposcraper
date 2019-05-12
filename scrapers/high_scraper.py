@@ -16,29 +16,30 @@ class HighScraper:
         file_names (list): scraped file names from find_files()
     """
 
-    prototypes_list = []
-    file_names = None
-
     def __init__(self, soup):
         self.soup = soup
+        self.file_names = self.find_files()
+        self.prototypes_list = self.find_prototypes()
 
     def find_prototypes(self):
         """Method to scrape python prototypes
 
         Has a failsafe incase there are non-python files in scraped data.
         """
+        res = []
         find_protos = self.soup.find_all(string=re.compile("Prototype: "))
         for item in find_protos:
             py_proto = item.next_sibling.text
             find_py = py_proto.find(":")
             if find_py != 1:
-                self.prototypes_list.append(py_proto)
+                res.append(py_proto)
             else:
                 pass
+        return res
 
     def find_files(self):
         """Method to scrape for python file names"""
-        self.file_names = self.soup.find_all(string=re.compile("File: "))
+        return self.soup.find_all(string=re.compile("File: "))
 
     def write_files(self):
         """Method to write/create python files

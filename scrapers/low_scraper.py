@@ -18,16 +18,15 @@ class LowScraper:
         header_name (str): scraped header name from find_header()
         putchar_check (str): scraped `_putchar` from find_putchar()
     """
-
-    prototypes_list = []
-    file_names = None
     header_check = 0
-    header_name = ""
-    putchar_check = ""
 
     def __init__(self, soup):
         """Instantiation of LowScraper"""
         self.soup = soup
+        self.putchar_check = self.find_putchar()
+        self.prototypes_list = self.find_prototypes()
+        self.header_name = self.find_header()
+        self.file_names = self.find_files()
 
     def find_putchar(self):
         """Method to scrape holberton's `_putchar`
@@ -38,9 +37,9 @@ class LowScraper:
         search_putchar = self.soup.find(string=re.compile("You are allowed to use"))
         try:
             if len(search_putchar) == 23:
-                self.putchar_check = search_putchar.next_sibling.text
+                return search_putchar.next_sibling.text
         except TypeError:
-            pass
+            return None
 
     def write_putchar(self):
         """Method to write/create holberton's `_putchar` if required"""
@@ -67,18 +66,21 @@ class LowScraper:
 
     def find_prototypes(self):
         """Method to scrape for C prototypes"""
+        temp = []
         find_protos = self.soup.find_all(string=re.compile("Prototype: "))
         for item in find_protos:
-            self.prototypes_list.append(item.next_sibling.text.replace(";", ""))
+            temp.append(item.next_sibling.text.replace(";", ""))
+        return temp
 
     def find_header(self):
         """Method to scrape for C header file name"""
         try:
             finder = "forget to push your header file"
             header_text = self.soup.find(string=re.compile(finder)).previous_element
-            self.header_name = header_text.previous_element.previous_element
+            return header_text.previous_element.previous_element
         except AttributeError:
             self.header_check = 1
+            return ""
 
     def write_header(self):
         """Method to write/create C header file if required"""
@@ -122,7 +124,7 @@ class LowScraper:
 
     def find_files(self):
         """Method to scrape for C file names"""
-        self.file_names = self.soup.find_all(string=re.compile("File: "))
+        return self.soup.find_all(string=re.compile("File: "))
 
     def write_files(self):
         """Method to write/create C files
