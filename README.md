@@ -1,4 +1,4 @@
-![github version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=1.0.9&x2=0)
+![github version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=1.1.0&x2=0)
 # Hipposcraper - Python Scripts for Automating Holberton Projects
 
 ### [STATUS] This repo is no longer maintained by [Derrick Gee](https://github.com/kai-dg) and [Brennan D Baraban](https://github.com/bdbaraban) starting 6/22/2019, please ask around or on the Holberton Slack to find someone who is maintaining a fork of this repo if you are looking for an updated version of this scraper.
@@ -113,6 +113,12 @@ Or only the `README.md` scraper:
 ~$ hipporead project_link
 ```
 
+### `check.sh` - Generated for checking formats on all files
+
+```
+~$ ./check.sh
+```
+
 ## Repository Contents :file_folder:
 
 * [hipposcraper.sh](./hipposcraper.sh)
@@ -150,6 +156,10 @@ test files for all project types.
 ## Example of the README scraper
 
 ![demo1](https://i.imgur.com/6qaC92l.jpg)
+
+## Example of `check.sh`
+
+![demo2](https://imgur.com/a/TQQm03R)
 
 ---
 

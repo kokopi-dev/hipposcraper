@@ -12,11 +12,7 @@ class LowScraper:
         soup (obj): BeautifulSoup obj containing parsed link
 
     Attributes:
-        prototypes_list (list): scraped prototypes from find_prototypes()
-        file_names (list): scraped file names from find_files()
         header_check (int): if 0, there is header. if 1, there is no header
-        header_name (str): scraped header name from find_header()
-        putchar_check (str): scraped `_putchar` from find_putchar()
     """
     header_check = 0
 
@@ -176,3 +172,13 @@ class LowScraper:
                 sys.stdout.write("                        ... ")
                 continue
         print("done")
+
+    def write_checker(self):
+        with open("check.sh", "w") as f:
+            f.write("#!/usr/bin/env bash\n")
+            f.write("betty ")
+            if self.header_name:
+                f.write('"%s" ' % self.header_name)
+            if self.file_names:
+                for i in self.file_names:
+                    f.write('"%s" ' % i.next_sibling.text)
