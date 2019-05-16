@@ -25,9 +25,10 @@ class TestFileScraper:
             find_py = item.text.find(".py")
             find_sql = item.text.find(".sql")
             find_js = item.text.find(".js")
+            find_html = item.text.find(".html")
 
             # find_main checks if there are main files on project page
-            if find_test != -1 and (find_c != -1 or find_py != -1 or find_sql != -1 or find_js != -1):
+            if find_test != -1 and (find_c != -1 or find_py != -1 or find_sql != -1 or find_js != -1 or find_html != -1):
                 try:
                     user = item.text.split("$", 1)[0]
                     name = item.text.split("cat ", 1)[1]
@@ -39,13 +40,23 @@ class TestFileScraper:
                         name = name.split(".js", 1)[0] + ".js"
                     else:
                         name = name.split(".py", 1)[0] + ".py"
-                    text = item.text.split(name, 1)[1]
-                    text = text.split("\n", 1)[1]
-                    text = text.split(user, 1)[0]
-                    text = text.split("\n")
+                    # html edge case test text creation
+                    if find_html != -1:
+                        text = item.text.split(".html")[1]
+                        text = str(text.split(user, 1)[0])
+                        text = text.split("\n", 1)[1]
+                        name = name.split(".html", 1)[0] + ".html"
+                    else:
+                        text = item.text.split(name, 1)[1]
+                        text = text.split("\n", 1)[1]
+                        text = text.split(user, 1)[0]
+                        text = text.split("\n")
                     w_test_file = open(name, "w+")
                     for i in range(len(text) - 1):
-                        w_test_file.write(text[i].encode('utf-8') + "\n")
+                        if find_html != -1:
+                            w_test_file.write(text[i])
+                        else:
+                            w_test_file.write(text[i].encode('utf-8') + "\n")
                     w_test_file.close()
                 except (AttributeError, IndexError):
                     newlines = 0
@@ -61,7 +72,7 @@ class TestFileScraper:
                     sys.stdout.write("                        ... ")
                     continue
                 except IOError:
-                    sys.stdout.write("\n     [ERROR] Could not create a specific test file.")
+                    sys.stdout.write("\n     [ERROR] Could not create a specific test file.\n")
                     continue
             else:
                 pass
