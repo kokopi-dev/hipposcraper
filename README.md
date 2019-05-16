@@ -113,6 +113,12 @@ Or only the `README.md` scraper:
 ~$ hipporead project_link
 ```
 
+### `check.sh` - Generated for checking formats on all files
+
+```
+~$ ./check.sh
+```
+
 ## Repository Contents :file_folder:
 
 * [hipposcraper.sh](./hipposcraper.sh)
@@ -150,6 +156,10 @@ test files for all project types.
 ## Example of the README scraper
 
 ![demo1](https://i.imgur.com/6qaC92l.jpg)
+
+## Example of `check.sh`
+
+![demo2](https://imgur.com/a/TQQm03R)
 
 ---
 
