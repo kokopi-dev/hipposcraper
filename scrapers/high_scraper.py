@@ -12,9 +12,11 @@ class HighScraper:
         soup (obj): BeautifulSoup obj containing parsed link
 
     Attributes:
-        prototypes_list (list): scraped prototypes from find_prototypes()
-        file_names (list): scraped file names from find_files()
+        py_flag (int): For write_checker()
+        py_js (int): For write_checker()
     """
+    py_flag = 0
+    js_flag = 0
 
     def __init__(self, soup):
         self.soup = soup
@@ -81,10 +83,12 @@ class HighScraper:
                 else:
                     w_file_name = open(text_file, "w+")
                     if ".py" in text_file:
+                        self.py_flag = 1
                         w_file_name.write("#!/usr/bin/python3\n")
                     elif ".sh" in text_file:
                         w_file_name.write("#!/bin/bash\n")
                     elif ".js" in text_file:
+                        self.js_flag = 1
                         w_file_name.write("#!/usr/bin/node\n")
                     else:
                         pass
@@ -118,3 +122,14 @@ class HighScraper:
                 dir_file.close()
             os.chdir("..")
         print("done")
+
+    def write_checker(self):
+        with open("check.sh", "w") as f:
+            f.write("#!/usr/bin/env bash\n")
+            if self.js_flag == 1:
+                f.write("semistandard --fix ")
+            if self.py_flag == 1:
+                f.write("pep8 ")
+            if self.file_names:
+                for i in self.file_names:
+                    f.write('"%s" ' % i.next_sibling.text)
