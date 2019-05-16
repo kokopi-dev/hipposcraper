@@ -26,7 +26,7 @@ class SysScraper:
         """
         temp = self.soup.find_all(string=re.compile("env ruby"))
         if temp != []:
-            return = 0
+            return 0
         else:
             return temp
 
