@@ -113,7 +113,7 @@ Or only the `README.md` scraper:
 ~$ hipporead project_link
 ```
 
-### `check.sh` - Generated for checking formats on all files
+### `check.sh` - Generated for checking formats on all required files
 
 ```
 ~$ ./check.sh
@@ -159,7 +159,7 @@ test files for all project types.
 
 ## Example of `check.sh`
 
-![demo2](https://imgur.com/a/TQQm03R)
+![demo2](https://i.imgur.com/oQqTLWXh.jpg)
 
 ---
 
