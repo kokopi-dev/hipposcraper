@@ -146,8 +146,8 @@ Bash task files for system engineering projects.
 Python task files for higher-level programming projects.
     * [test_file_scraper.py](./scrapers/test_file_scraper.py): Python methods for creating 
 test files for all project types.
-    * [setup.sh](./setup.sh): Sets up all variables and aliases with this script.
-    * [autover.sh](./autover.sh): Development tool for changing all version strings.
+* [setup.sh](./setup.sh): Sets up all variables and aliases with this script.
+* [autover.sh](./autover.sh): Development tool for changing all version strings.
     
 ---
 
