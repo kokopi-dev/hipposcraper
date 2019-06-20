@@ -52,7 +52,7 @@ class BaseParse(object):
         try:
             with open("{}/auth_data.json".format(super_path.rsplit("/", 1)[0]), "r") as json_file:
                 return json.load(json_file)
-        except FileNotFoundError:
+        except IOError:
             print("[ERROR] Please run ./setup.sh to setup your auth data...")
             sys.exit()
 
