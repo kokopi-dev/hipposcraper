@@ -53,7 +53,7 @@ class BaseParse(object):
             with open("{}/auth_data.json".format(super_path.rsplit("/", 1)[0]), "r") as json_file:
                 return json.load(json_file)
         except IOError:
-            print("[ERROR] Is your json file name correct?")
+            print("[ERROR] Please run ./setup.sh to setup your auth data...")
             sys.exit()
 
     def get_soup(self):
