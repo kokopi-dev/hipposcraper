@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+sudo apt -y update
+sudo apt-get -y install python3-pip
+sudo apt -y install unzip
+wget "https://chromedriver.storage.googleapis.com/77.0.3865.40/chromedriver_linux64.zip"
+unzip chromedriver_linux64.zip -d "$1"
+wget "https://dl.google.com/linux/linux_signing_key.pub"
+sudo apt-key add linux_signing_key.pub
+sudo echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+sudo apt-get -y update
+sudo apt-get -y install google-chrome-stable
+rm chromedriver_linux64.zip
+rm "$1/linux_signing_key.pub"
+# For Ubuntu14.04
+sudo pip3 install --upgrade --ignore-installed urllib3
+sudo pip3 install -r requirements.txt
+
+if ! grep -q hippoproject.py ~/.bashrc
+then
+    project_alias="alias hippoproject='python3 $1/hippoproject.py'"
+    echo "$project_alias" >> ~/.bashrc
+    echo "  -> $project_alias"
+fi
+
+if ! grep -q hipporead.py ~/.bashrc
+then
+    read_alias="alias hipporead='python3 $1/hipporead.py'"
+    echo "$read_alias" >> ~/.bashrc
+    echo "  -> $read_alias"
+fi
+
+source ~/.bashrc
