@@ -221,7 +221,7 @@ class ReadScraper:
                     self.readme.write("{}\n".format(a[1][idx].encode('utf-8')))
                     continue
                 self.readme.write("* [{}]".format(a[0][idx].encode('utf-8')))
-                self.readme.write("* ({})\n".format(a[1][idx].encode('utf-8')))
+                self.readme.write("({})\n".format(a[1][idx].encode('utf-8')))
 
             print("done")
         except (AttributeError, IndexError, UnicodeEncodeError):
