@@ -160,7 +160,7 @@ class ReadScraper:
     def write_info(self):
         """Method that writes project info to README.md"""
         sys.stdout.write("  -> Writing learning objectives... ")
-        self.readme.write("## Description\n")
+        self.readme.write("## Learning Objectives:bulb:\n")
         self.readme.write("What you should learn from this project:\n")
         try:
             for item in self.prj_info:
@@ -210,7 +210,7 @@ class ReadScraper:
     def write_rsc(self):
         """Method that writes project info to README.md"""
         sys.stdout.write("  -> Writing resources... ")
-        self.readme.write("## Resources\n")
+        self.readme.write("## Resources:books:\n")
         self.readme.write("Read or watch:\n")
         try:
             a = self.prj_rsc
