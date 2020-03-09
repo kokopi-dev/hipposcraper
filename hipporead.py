@@ -47,6 +47,7 @@ def hipporead():
     # Writing to README.md with scraped data
     r_scraper.open_readme()
     r_scraper.write_title()
+    r_scraper.write_rsc()
     r_scraper.write_info()
     r_scraper.write_tasks()
 

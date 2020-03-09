@@ -30,6 +30,7 @@ class ReadScraper:
         self.file_names = self.find_files()
         self.task_names = self.find_tasks()
         self.task_info = self.find_task_de()
+        self.prj_rsc = self.find_resources()
 
     def find_title(self):
         """Method that finds title of project"""
@@ -53,14 +54,15 @@ class ReadScraper:
             sys.stdout.write("\n     [ERROR] Failed to find directory,\
                              skipping directory creation... ")
             self.big_project_type = 1
-            return "" 
+            return ""
 
     def find_learning(self):
         """Method that finds the learning objectives"""
         try:
             h2 = self.soup.find("h2", string=re.compile("Learning Objectives"))
-            h3 = h2.find_next("h3").next_element.next_element.next_element.text
-            return h3.splitlines()
+            lu = h2.find_next("h3").next_element.next_element.next_element
+            txt= lu.text
+            return txt.splitlines()
         except AttributeError:
             print("[ERROR] Failed to scrape learning objectives")
             sys.stdout.write("                         ... ")
@@ -115,6 +117,29 @@ class ReadScraper:
             print("                         ... ")
             return None
 
+    def find_resources(self):
+        """Method that finds the resources"""
+        try:
+
+            h2 = self.soup.find("h2", string=re.compile("Resources"))
+            p = h2.find_next("p")
+            ul = p.findNext('ul')
+            urls = []
+            names = []
+            for item in ul.find_all("a", href=True):
+                url = item['href']
+                name = item.text
+                if (url.startswith('/rltoken/')):
+                    url = 'https://intranet.hbtn.io'+ url
+                urls.append(url)
+                names.append(name)
+            links = [names, urls]
+            return links
+        except AttributeError:
+            print("[ERROR] Failed to scrape resources")
+            sys.stdout.write("                         ... ")
+            return ""
+
     def open_readme(self):
         """Method that opens the README.md file"""
         try:
@@ -135,7 +160,7 @@ class ReadScraper:
     def write_info(self):
         """Method that writes project info to README.md"""
         sys.stdout.write("  -> Writing learning objectives... ")
-        self.readme.write("## Description\n")
+        self.readme.write("## Learning Objectives:bulb:\n")
         self.readme.write("What you should learn from this project:\n")
         try:
             for item in self.prj_info:
@@ -181,3 +206,27 @@ class ReadScraper:
         self.readme.write("[{}]".format(user))
         self.readme.write("({})".format(git_link))
         print("done")
+
+    def write_rsc(self):
+        """Method that writes project info to README.md"""
+        sys.stdout.write("  -> Writing resources... ")
+        self.readme.write("## Resources:books:\n")
+        self.readme.write("Read or watch:\n")
+        try:
+            a = self.prj_rsc
+            l = len(a[0])
+            for idx in range(l):
+                if len(a[0][idx]) == 0:
+                    self.readme.write("{}".format(a[0][idx].encode('utf-8')))
+                    self.readme.write("{}\n".format(a[1][idx].encode('utf-8')))
+                    continue
+                self.readme.write("* [{}]".format(a[0][idx].encode('utf-8')))
+                self.readme.write("({})\n".format(a[1][idx].encode('utf-8')))
+
+            print("done")
+        except (AttributeError, IndexError, UnicodeEncodeError):
+            print("\n     [ERROR] Failed to write resources.")
+            pass
+        self.readme.write("\n")
+        self.readme.write("---\n")
+
